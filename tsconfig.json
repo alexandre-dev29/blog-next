@@ -23,6 +23,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
+    "paths": { "@/*": ["./*"] },
     "plugins": [
       {
         "name": "next"

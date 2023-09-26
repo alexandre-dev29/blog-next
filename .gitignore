@@ -5,6 +5,11 @@ dist
 tmp
 /out-tsc
 
+.env
+/.env
+/.idea
+.idea
+
 # dependencies
 node_modules
 
