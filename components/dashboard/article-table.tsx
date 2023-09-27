@@ -26,7 +26,6 @@ const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
             <TableRow>
               <TableHead className="!p-4">No</TableHead>
               <TableHead className={'text-left'}>Article Title</TableHead>
-              <TableHead>Author</TableHead>
               <TableHead>Post Date</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Likes</TableHead>
@@ -57,25 +56,13 @@ const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
                     </Link>
                   </div>
                 </TableCell>
-                <TableCell>
-                  <div className={'flex items-center'}>
-                    <Image
-                      src={`${value.author?.avatarImage}`}
-                      alt={'unsplash images'}
-                      width={40}
-                      height={40}
-                      className={'h-[40px] w-[40px]  rounded-full shadow-lg'}
-                    />
-                    <p className={'ml-2 font-bold'}>Alexandre</p>
-                  </div>
-                </TableCell>
-                <TableCell>{`${new Date(
-                  value.publishedAt ?? Date.now()
-                ).toLocaleDateString('en-CA')}`}</TableCell>
                 <TableCell>{value.category?.categoryName}</TableCell>
                 <TableCell>{value.postTotalLikes}</TableCell>
                 <TableCell>{value.postTotalShares}</TableCell>
                 <TableCell>{value.postViewCount}</TableCell>
+                <TableCell>{`${new Date(
+                  value.publishedAt ?? Date.now()
+                ).toLocaleDateString('en-CA')}`}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -11,5 +11,5 @@ export const CanAccess = ({
   resource: ResourceType;
   Action: ActionType;
 }) => {
-  return <></>;
+  return <>{children}</>;
 };

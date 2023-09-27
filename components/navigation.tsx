@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
+import { Users } from '@/types/allTypes';
 import Link from 'next/link';
 import * as React from 'react';
 

@@ -18,7 +18,14 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Users } from '@/types/allTypes';
-import { Github, LayoutDashboard, LogOut, User } from 'lucide-react';
+import {
+  FileText,
+  Github,
+  LayoutDashboard,
+  List,
+  LogOut,
+  User,
+} from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -52,6 +59,18 @@ const UserConnection = ({ userData }: UserConnectionProps) => {
                 <DropdownMenuItem className={'cursor-pointer'}>
                   <LayoutDashboard className="mr-2 h-4 w-4" />
                   <span>Dashboard</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href={'/dashboard/posts'}>
+                <DropdownMenuItem className={'cursor-pointer'}>
+                  <FileText className="mr-2 h-4 w-4" />
+                  <span>Your Articles</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href={'/dashboard/categories'}>
+                <DropdownMenuItem className={'cursor-pointer'}>
+                  <List className="mr-2 h-4 w-4" />
+                  <span>Categories</span>
                 </DropdownMenuItem>
               </Link>
               <Link href={'/dashboard/profile'}>
