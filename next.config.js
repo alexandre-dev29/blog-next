@@ -12,6 +12,19 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    domains: ['images.unsplash.com', 'res.cloudinary.com'],
+    remotePatterns: [
+      {
+        hostname: '**',
+        protocol: 'https',
+      },
+      {
+        hostname: 'images.unsplash.com',
+        protocol: 'https',
+      },
+    ],
+  },
 };
 
 const plugins = [

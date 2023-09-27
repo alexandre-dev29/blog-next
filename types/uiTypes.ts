@@ -1,12 +1,13 @@
-import { MDXRemoteSerializeResult } from "next-mdx-remote";
-
-import { Posts, Users } from "@/types/allTypes";
+import { Posts, Users } from '@/types/allTypes';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { NextMiddleware } from 'next/server';
 
 export enum ResponseTypeEnum {
   SUCCESS,
   ERROR,
 }
 
+export type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware;
 export interface IPostSlugPageData {
   mdxSource: MDXRemoteSerializeResult<
     Record<string, unknown>,
@@ -44,8 +45,19 @@ export type DrawerItem = {
 };
 
 export enum Role {
-  Admin = "Admin",
-  Editor = "Editor",
+  Admin = 'Admin',
+  Editor = 'Editor',
+}
+export enum ResourceType {
+  Category,
+  Post,
+  Authors,
+}
+
+export enum ActionType {
+  Create,
+  Delete,
+  Edit,
 }
 
 export interface PieChartProps {

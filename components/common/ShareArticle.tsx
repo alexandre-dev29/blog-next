@@ -1,5 +1,15 @@
 'use client';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { useToast } from '@/components/ui/use-toast';
+import { API_URL, FRONT_URL } from '@/config/constants';
+import { axiosInstance } from '@/lib/axiosInstance';
+import { Posts } from '@/types/allTypes';
 import { Copy, Facebook, Linkedin, Send, Twitter } from 'lucide-react';
 import {
   FacebookShareButton,
@@ -8,19 +18,9 @@ import {
   TwitterShareButton,
 } from 'react-share';
 
-import { API_URL, FRONT_URL } from '@/config/constants';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useToast } from '@/components/ui/use-toast';
-import { Posts } from '@/types/allTypes';
-import { axiosInstance } from '@/lib/axiosInstance';
-
 export default function ShareArticle({ postData }: { postData: Posts }) {
   const { toast } = useToast();
+  const a = postData.tags ?? [];
 
   const addShareCount = () => {
     axiosInstance.post(`${API_URL}/posts/postShare/setPostShareBySlug`, {
@@ -80,7 +80,7 @@ export default function ShareArticle({ postData }: { postData: Posts }) {
         <TwitterShareButton
           title={`${postData.postTitle}`}
           via={`${FRONT_URL}/post/${postData.postSlug}`}
-          hashtags={postData.tags.map((value) => value)}
+          hashtags={postData.tags ?? []}
           related={[]}
           url={`${FRONT_URL}/post/${postData.postSlug}`}
         >

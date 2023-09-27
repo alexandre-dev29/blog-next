@@ -1,11 +1,13 @@
-import { createSelectSchema } from "drizzle-zod";
-import * as z from "zod";
-import { posts, categories, users } from "db";
+import { categories, posts, users } from '@/db/src/schema';
+import { createSelectSchema } from 'drizzle-zod';
+import * as z from 'zod';
 
 export const selectCategoriesSchema = createSelectSchema(categories).extend({});
 export const selectUserSchema = createSelectSchema(users).extend({});
-export const selectPostsSchema = createSelectSchema(posts).extend({
-  author: selectUserSchema,
+export const selectPostsSchema = createSelectSchema(posts, {
+  tags: z.string().array(),
+}).extend({
+  author: selectUserSchema.optional(),
   category: selectCategoriesSchema,
 });
 

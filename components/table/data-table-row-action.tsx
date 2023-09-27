@@ -1,18 +1,16 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import { Row } from '@tanstack/react-table';
-import { Edit, EditTrash, Trash } from 'lucide-react';
-
-import { postsSchema } from '@/config/postDataTable';
 import { Button } from '@/components/ui/button';
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { postsSchema } from '@/config/postDataTable';
+import { Row } from '@tanstack/react-table';
+import { Edit, Trash } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

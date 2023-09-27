@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/blog-next"
+        "outputPath": "./"
       },
       "configurations": {
         "development": {

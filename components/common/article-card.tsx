@@ -1,7 +1,4 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-
+import CustomMainImage from '@/components/images/custom-main-image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import {
   Card,
@@ -9,8 +6,10 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
-import CustomMainImage from '@/components/images/custom-main-image';
 import { Posts } from '@/types/allTypes';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const ArticleCard = ({
   withAuthor,
@@ -33,10 +32,10 @@ const ArticleCard = ({
       </CardHeader>
       <CardContent className="grid gap-2">
         <Link
-          href={`/category/${currentPost.Category?.categorySlug}`}
+          href={`/category/${currentPost.category?.categorySlug}`}
           className="text-lg font-extrabold leading-tight tracking-tighter text-muted-foreground  md:text-xl"
         >
-          {currentPost.Category?.categoryName}
+          {currentPost.category?.categoryName}
         </Link>
         <Link
           href={`/post/${currentPost.postSlug}`}
@@ -64,12 +63,12 @@ const ArticleCard = ({
               alt={`${currentPost.author?.fullName} profile`}
             />
             <Link
-              href={`/author/${currentPost.author.id}`}
+              href={`/author/${currentPost.author?.id}`}
               className={
                 'text-sm font-extrabold leading-tight tracking-tighter md:text-base'
               }
             >
-              {currentPost.author.fullName}
+              {currentPost.author?.fullName}
             </Link>
           </div>
         ) : (

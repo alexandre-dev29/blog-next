@@ -1,9 +1,5 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -14,6 +10,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Posts } from '@/types/allTypes';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
   return (
@@ -61,7 +60,7 @@ const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
                 <TableCell>
                   <div className={'flex items-center'}>
                     <Image
-                      src={`${value.author.avatarImage}`}
+                      src={`${value.author?.avatarImage}`}
                       alt={'unsplash images'}
                       width={40}
                       height={40}
@@ -73,7 +72,7 @@ const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
                 <TableCell>{`${new Date(
                   value.publishedAt ?? Date.now()
                 ).toLocaleDateString('en-CA')}`}</TableCell>
-                <TableCell>{value.Category?.categoryName}</TableCell>
+                <TableCell>{value.category?.categoryName}</TableCell>
                 <TableCell>{value.postTotalLikes}</TableCell>
                 <TableCell>{value.postTotalShares}</TableCell>
                 <TableCell>{value.postViewCount}</TableCell>

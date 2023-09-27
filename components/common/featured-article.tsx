@@ -1,21 +1,20 @@
-import React from 'react';
+import CustomMainImage from '@/components/images/custom-main-image';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { PostsResponse } from '@/types/uiTypes';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import CustomMainImage from '@/components/images/custom-main-image';
-import { PostsResponse } from '@/types/uiTypes';
+import React from 'react';
 
 export function FeaturedArticle(props: { post: PostsResponse }) {
   return (
     <>
-      <div className="order-1 col-span-12 grid items-center gap-4 pb-8 pt-6 md:col-start-1 md:col-end-7 md:gap-6 md:py-10">
+      <div className="order-1 col-span-12 grid items-center gap-4 pb-8 pt-6 md:col-start-1 md:col-end-7 md:gap-6 md:py-2">
         <div className="flex max-w-[980px] flex-col items-start gap-2">
           <Link
-            href={`/category/${props.post.featuredArticle.data.Category?.categorySlug}`}
+            href={`/category/${props.post.featuredArticle.data.category?.categorySlug}`}
             className="text-xl font-extrabold leading-tight tracking-tighter text-muted-foreground  md:text-2xl"
           >
-            {props.post.featuredArticle.data.Category?.categoryName}
+            {props.post.featuredArticle.data.category?.categoryName}
           </Link>
           <Link href={`/post/${props.post.featuredArticle.data.postSlug}`}>
             <h1
@@ -38,7 +37,7 @@ export function FeaturedArticle(props: { post: PostsResponse }) {
             height={40}
             referrerPolicy="no-referrer"
             className={'cursor-pointer rounded-full'}
-            src={`${props.post.featuredArticle.data.author.avatarImage}`}
+            src={`${props.post.featuredArticle.data.author?.avatarImage}`}
             alt={`${props.post.featuredArticle.data.author?.fullName} profile `}
           />
           <Link
@@ -62,7 +61,7 @@ export function FeaturedArticle(props: { post: PostsResponse }) {
           <CustomMainImage
             postTitle={'Alexandre'}
             postImageSrc={props.post.featuredArticle.data.postMainImage}
-            hasBlurImage={true}
+            hasBlurImage={false}
             blurImage={props.post.featuredArticle.blurImage}
             customClassName={'rounded-xl lg:rounded-2xl'}
           />

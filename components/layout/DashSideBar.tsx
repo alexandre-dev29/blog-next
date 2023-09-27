@@ -1,23 +1,22 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import { useAppSelectedMenuState } from '@/states/state-management';
-import { CanAccess, useLogout } from '@refinedev/core';
-import { LogOut } from 'lucide-react';
-
-import { NavSideBarProps } from '@/types/uiTypes';
-import { firstMenuList } from '@/config/datas';
+import { CanAccess } from '@/components/CanAccess';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { firstMenuList } from '@/config/datas';
+import { useAppSelectedMenuState } from '@/states/state-management';
+import { ActionType, NavSideBarProps, ResourceType } from '@/types/uiTypes';
+import { LogOut } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
+import React from 'react';
 
 export const Sidebar = ({ sidebarWidth, navBarHeight }: NavSideBarProps) => {
   const { menuSelected, setSelectedMenu } = useAppSelectedMenuState();
-  const { mutate: mutateLogout } = useLogout();
   return (
     <aside
       className={`z-40 h-screen border-r-2 bg-background shadow-md`}
@@ -36,9 +35,8 @@ export const Sidebar = ({ sidebarWidth, navBarHeight }: NavSideBarProps) => {
             {firstMenuList.map((element, index) => (
               <CanAccess
                 key={index}
-                action={''}
-                resource={element.text.toLowerCase()}
-                params={{ resource: { name: element.text.toLowerCase() } }}
+                Action={ActionType.Create}
+                resource={ResourceType.Authors}
               >
                 <TooltipProvider key={index}>
                   <Tooltip>
@@ -72,7 +70,7 @@ export const Sidebar = ({ sidebarWidth, navBarHeight }: NavSideBarProps) => {
                 <TooltipTrigger asChild>
                   <li
                     className={'mt-10 cursor-pointer'}
-                    onClick={() => mutateLogout()}
+                    onClick={() => signOut()}
                   >
                     <LogOut />
                   </li>

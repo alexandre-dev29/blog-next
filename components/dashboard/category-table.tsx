@@ -1,11 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { CanAccess, useDelete } from '@refinedev/core';
-import { Edit, Trash } from 'lucide-react';
-
+import { CanAccess } from '@/components/CanAccess';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -22,22 +17,17 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Categories } from '@/types/allTypes';
+import { ActionType, ResourceType } from '@/types/uiTypes';
+import { Edit, Trash } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react';
 
 const ArticleTable = ({ allCategories }: { allCategories: Categories[] }) => {
   const [allCurrentCategories, setAllCurrentCategories] =
     useState(allCategories);
-  const { mutate, isLoading } = useDelete();
   const deleteCurrentCategory = (id: string) => {
-    mutate(
-      { resource: 'categories', id },
-      {
-        onSuccess: () => {
-          setAllCurrentCategories(
-            allCurrentCategories.filter((value) => value.id != id)
-          );
-        },
-      }
-    );
+    console.log(id);
   };
   return (
     <Card className="w-full">
@@ -50,7 +40,10 @@ const ArticleTable = ({ allCategories }: { allCategories: Categories[] }) => {
           >
             Category list
           </h1>
-          <CanAccess resource={'categories'} action={'create'}>
+          <CanAccess
+            resource={ResourceType.Category}
+            Action={ActionType.Create}
+          >
             <Link href={'/dashboard/categories/create'}>
               <Button>Create category</Button>
             </Link>
