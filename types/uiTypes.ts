@@ -58,6 +58,7 @@ export enum ActionType {
   Create,
   Delete,
   Edit,
+  SetPublish,
 }
 
 export interface PieChartProps {
