@@ -45,7 +45,10 @@ export async function POST(request: Request) {
       where: eq(categories.categoryName, categoryName),
     });
     if (foundedCategory) {
-      return new Error('This category already exist');
+      return NextResponse.json({
+        messageType: 'error',
+        message: 'There was an error',
+      });
     }
     let slug = generateSlug(categoryName);
     let slugExists = await database.query.categories.findFirst({

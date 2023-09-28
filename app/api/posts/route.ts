@@ -9,12 +9,28 @@ import { v4 as uuidv4 } from 'uuid';
 const readingTime = require('reading-time');
 
 export async function PUT(request: Request) {
+  const {
+    isPublished,
+    actionType,
+    id,
+    Tags,
+    categoryId,
+    postMainImage,
+    postTitle,
+    postDescription,
+    postContent,
+  } = (await request.json()) as {
+    id: string;
+    isPublished: boolean;
+    actionType: ActionType;
+    postTitle: string;
+    postDescription: string;
+    postMainImage: string;
+    categoryId: string;
+    postContent: string;
+    Tags: string[];
+  };
   try {
-    const { isPublished, actionType, id } = (await request.json()) as {
-      id: string;
-      isPublished: boolean;
-      actionType: ActionType;
-    };
     if (actionType === ActionType.SetPublish) {
       await DbConnection.instance()
         .update(posts)
@@ -28,9 +44,24 @@ export async function PUT(request: Request) {
         message: 'the profile has been edited',
       });
     } else {
+      const read = readingTime(postContent);
+      await DbConnection.instance()
+        .update(posts)
+        .set({
+          postTitle: postTitle,
+          postDescription,
+          postContent,
+          postReadTime: Math.round(read.minutes),
+          postMainImage,
+          tags: Tags,
+          categoryId,
+          updatedAt: `${new Date().toISOString()}`,
+        })
+        .where(eq(posts.id, id));
+
       return NextResponse.json({
         messageType: 'success',
-        message: 'the profile has been edited',
+        message: 'the post has been edited',
       });
     }
   } catch (e) {
