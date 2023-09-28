@@ -11,9 +11,9 @@ export async function GET(request: Request) {
 
   const fields = allPosts.map((values) => {
     return {
-      loc: `${process.env.SITE_URL || 'http://localhost:3000'}/post/${
-        values.postSlug
-      }`,
+      loc: `${
+        process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000'
+      }/post/${values.postSlug}`,
       lastmod: new Date().toISOString(),
     };
   });

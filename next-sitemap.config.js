@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'http://localhost:3000',
+  siteUrl: process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000',
   generateRobotsTxt: true, // (optional)
   exclude: [
     '/dashboard/*',
@@ -15,8 +15,10 @@ module.exports = {
   sitemapSize: 7000,
   robotsTxtOptions: {
     additionalSitemaps: [
-      `${process.env.SITE_URL || 'http://localhost:3000'}/server-sitemap.xml`,
+      `${
+        process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000'
+      }/server-sitemap.xml`,
     ],
-    policies: [{userAgent: '*', allow: '/', disallow: ['/dashboard']}],
+    policies: [{ userAgent: '*', allow: '/', disallow: ['/dashboard'] }],
   },
 };

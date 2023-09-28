@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "next start"
+    "start": "next start",
+    "generate:migration": "drizzle-kit generate:pg --config=drizzle.config.ts",
+    "migrate": "node migration.js"
   },
   "private": true,
   "dependencies": {
