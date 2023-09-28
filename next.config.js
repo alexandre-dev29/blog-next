@@ -12,6 +12,7 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  experimental: {serverComponentsExternalPackages: ['shiki']},
   images: {
     domains: ['images.unsplash.com', 'res.cloudinary.com'],
     remotePatterns: [
