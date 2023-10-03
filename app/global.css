@@ -72,16 +72,25 @@
 
 @layer base {
   * {
-    @apply border-border;
+      @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  ::selection{
-    @apply text-white bg-teal-700;
-  }
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    ::selection {
+        @apply text-white bg-teal-700;
+    }
+
+    ul {
+        list-style: circle;
+    }
+
+    ol {
+        list-style: decimal;
+    }
 
 }
 
@@ -266,13 +275,13 @@ blockquote {
 }
 
 
-.ProseMirror p.is-editor-empty:first-child::before {
-  color: #adb5bd;
-  content: attr(data-placeholder);
-  float: left;
-  height: 0;
-  width: 100%;
-  pointer-events: none;
+.ProseMirror p.is-empty::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    width: 100%;
+    pointer-events: none;
 }
 
 .ProseMirror > * + * {
@@ -297,12 +306,34 @@ iframe {
   min-width: 200px;
   min-height: 500px;
   display: block;
-  width: 100%;
-  outline: 0px solid transparent;
+    width: 100%;
+    outline: 0px solid transparent;
 }
 
 div[data-youtube-video] {
-  cursor: move;
-  padding-right: 24px;
+    cursor: move;
+    padding-right: 24px;
 }
+
+
+.item {
+
+}
+
+.item.is-selected,
+.item:hover {
+    color: #a975ff;
+    @apply bg-gray-100 dark:bg-gray-600;
+}
+
+.itemIcon {
+    @apply dark:bg-gray-700
+}
+
+.editor-output {
+    font-size: 0.8rem;
+    border-left: 5px solid purple;
+    padding: 0.5em 1em;
+}
+
 

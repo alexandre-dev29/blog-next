@@ -1,16 +1,16 @@
-import React, {Fragment, useRef} from "react"
-import {Dialog, Transition} from "@headlessui/react"
+import { Dialog, Transition } from '@headlessui/react';
+import React, { Fragment, useRef } from 'react';
 
 const CustomModal = ({
-                       isOpen,
-                       setIsOpen,
-                       children,
-                     }: {
-  isOpen: boolean
-  setIsOpen: any
-  children: React.ReactNode
+  isOpen,
+  setIsOpen,
+  children,
+}: {
+  isOpen: boolean;
+  setIsOpen: any;
+  children: React.ReactNode;
 }) => {
-  const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef(null);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -29,7 +29,7 @@ const CustomModal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -43,8 +43,7 @@ const CustomModal = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel
-                className="relative w-fit overflow-hidden rounded-sm bg-white p-8 text-left shadow-xl transition-all sm:my-8">
+              <Dialog.Panel className="relative w-fit overflow-hidden rounded-sm bg-white p-8 text-left shadow-xl transition-all sm:my-8">
                 {children}
               </Dialog.Panel>
             </Transition.Child>
@@ -52,7 +51,7 @@ const CustomModal = ({
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
-export default CustomModal
+export default CustomModal;

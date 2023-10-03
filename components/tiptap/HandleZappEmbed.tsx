@@ -1,10 +1,5 @@
-import React from "react"
-import {zodResolver} from "@hookform/resolvers/zod"
-import {Editor} from "@tiptap/react"
-import {useForm} from "react-hook-form"
-import * as z from "zod"
-
-import {Button} from "@/components/ui/button"
+import CustomModal from '@/components/tiptap/CustomModal';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,30 +7,34 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
-import CustomModal from "@/components/tiptap/CustomModal"
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Editor } from '@tiptap/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 const HandleZappEmbed = ({
-                           editor,
-                           setIsOpen,
-                           isOpen,
-                         }: {
-  editor: Editor | null
-  isOpen: boolean
-  setIsOpen: any
+  editor,
+  setIsOpen,
+  isOpen,
+}: {
+  editor: Editor | null;
+  isOpen: boolean;
+  setIsOpen: any;
 }) => {
   const formSchema = z.object({
     linkUrl: z.string().url({
-      message: "Please write a correct url.",
+      message: 'Please write a correct url.',
     }),
-  })
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      linkUrl: "",
+      linkUrl: '',
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (editor) {
@@ -45,10 +44,10 @@ const HandleZappEmbed = ({
         .setIframe({
           src: values.linkUrl,
         })
-        .run()
+        .run();
 
-      setIsOpen(false)
-      form.reset({linkUrl: ""})
+      setIsOpen(false);
+      form.reset({ linkUrl: '' });
     }
   }
 
@@ -59,7 +58,7 @@ const HandleZappEmbed = ({
           <FormField
             control={form.control}
             name="linkUrl"
-            render={({field}) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Url</FormLabel>
                 <FormControl>
@@ -68,7 +67,7 @@ const HandleZappEmbed = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage/>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -76,7 +75,7 @@ const HandleZappEmbed = ({
         </form>
       </Form>
     </CustomModal>
-  )
-}
+  );
+};
 
-export default HandleZappEmbed
+export default HandleZappEmbed;

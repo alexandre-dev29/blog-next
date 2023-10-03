@@ -62,8 +62,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <SiteHeader />
-            {children}
-            <TailwindIndicator />
+            {children} <TailwindIndicator />
             <CommandRender categories={categoryList} posts={postList} />
             <Toaster />
           </ThemeProvider>
