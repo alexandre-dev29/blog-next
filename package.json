@@ -89,6 +89,7 @@
     "tailwind-merge": "1.14.0",
     "tailwindcss-animate": "1.0.7",
     "tippy.js": "6.3.7",
+    "tiptap-extension-code-block-prism": "^0.0.2-e",
     "tiptap-markdown": "0.7.4",
     "tslib": "2.6.2",
     "unist-builder": "3.0.1",

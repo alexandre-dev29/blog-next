@@ -3134,7 +3134,7 @@
     "@tiptap/extension-strike" "^2.1.11"
     "@tiptap/extension-text" "^2.1.11"
 
-"@tiptap/suggestion@^2.1.11":
+"@tiptap/suggestion@2.1.11":
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/@tiptap/suggestion/-/suggestion-2.1.11.tgz#3b814c317565b6adbc9dffa9312d7fd1e4e0ebed"
   integrity sha512-AVMB4x1X3eU7QCO1A8URQK0W7ps5dsVzveIP7+c//Z/GYe8lFSGIUnEbLJdr6bwgPkRL56m7c9+oZqVST5wfjQ==
@@ -9904,7 +9904,7 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-reading-time@^1.5.0:
+reading-time@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/reading-time/-/reading-time-1.5.0.tgz#d2a7f1b6057cb2e169beaf87113cc3411b5bc5bb"
   integrity sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==
@@ -10904,7 +10904,7 @@ timers-ext@^0.1.7:
     es5-ext "~0.10.46"
     next-tick "1"
 
-tippy.js@^6.3.7:
+tippy.js@6.3.7, tippy.js@^6.3.7:
   version "6.3.7"
   resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
   integrity sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==
