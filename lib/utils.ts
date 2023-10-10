@@ -3,6 +3,7 @@ import { Users } from '@/types/allTypes';
 import axios from 'axios';
 import { clsx, type ClassValue } from 'clsx';
 import { Session } from 'next-auth';
+import { userAgent } from 'next/server';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -70,4 +71,8 @@ export function generateSlug(title: string): string {
   const finalSlug = `${trimmedSlug}-${randomString}`;
 
   return finalSlug;
+}
+
+async function countUserVisite(headers: Headers) {
+  const {} = userAgent({ headers: headers });
 }

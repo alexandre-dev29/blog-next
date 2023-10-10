@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "next start"
+    "start": "next start",
+    "generate:migration": "drizzle-kit generate:pg --config=drizzle.config.ts",
+    "migrate": "node migration.js"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +54,7 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "cmdk": "0.2.0",
+    "cookies-next": "^4.0.0",
     "dotenv": "10.0.0",
     "drizzle-orm": "0.28.6",
     "drizzle-zod": "0.5.1",

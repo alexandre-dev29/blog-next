@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
@@ -154,6 +154,8 @@ export const userVisites = pgTable('UserVisites', {
   sessionId: text('sessionId').notNull(),
   ipAddress: text('ipAddress').notNull(),
   device: text('device').notNull(),
+  urlVisited: text('urlVisted'),
+  authorVisited: text('authorVisited'),
   location: text('location'),
   createdAt: timestamp('createdAt', { precision: 3, mode: 'string' })
     .defaultNow()

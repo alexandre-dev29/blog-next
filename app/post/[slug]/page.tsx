@@ -17,11 +17,19 @@ import { Metadata } from 'next';
 import Balancer from 'react-wrap-balancer';
 
 export default async function Index({ params }: { params: { slug: string } }) {
-  const postData = await DbConnection.instance().query.posts.findFirst({
+  const database = DbConnection.instance();
+  const postData = await database.query.posts.findFirst({
     with: { author: true, category: true },
     where: eq(posts.postSlug, params.slug),
   });
-
+  if (postData) {
+    database
+      .update(posts)
+      .set({ postViewCount: postData?.postViewCount + 1 })
+      .where(eq(posts.postSlug, params.slug))
+      .execute()
+      .then(() => console.log());
+  }
   const { content, data } = matter(`${postData?.postContent}`);
   const mdxSource = await GenerateMdxSource(content, data);
 
