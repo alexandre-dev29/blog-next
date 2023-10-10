@@ -35,9 +35,9 @@ import { Categories, Posts } from '@/types/allTypes';
 import { ActionType } from '@/types/uiTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEditor } from '@tiptap/react';
-import { Loader2, Save, XOctagon } from 'lucide-react';
+import { Loader2, MoveUpRightIcon, Save, XOctagon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -64,8 +64,7 @@ const EditPostForm = ({
   const [postTags, setPostTags] = useState<string[]>([
     ...tagsJoined.split('||'),
   ]);
-  const [title, setTitle] = useState(postData.postTitle);
-  const [description, setDescription] = useState(postData.postDescription);
+  const formReference = useRef<HTMLFormElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -107,140 +106,150 @@ const EditPostForm = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-16">
-        <Card className={'h-fit relative'}>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Edit post</CardTitle>
-            <CardDescription>
-              change details below for the current post
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className={'flex flex-col'}>
-              <FormField
-                control={form.control}
-                name="categoryId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {categoryList.map((value) => (
-                          <SelectItem value={value.id} key={value.id}>
-                            {value.categoryName}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="postMainImage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Post Image Url</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ex: https://google.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className={'flex items-center gap-2'}>
-                <div className={'flex-1'}>
-                  <FormField
-                    control={form.control}
-                    name="Tags"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Post Tags</FormLabel>
+      <div className="flex gap-16">
+        <form onSubmit={form.handleSubmit(onSubmit)} ref={formReference}>
+          <Card className={'h-fit relative'}>
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl">Edit post</CardTitle>
+              <CardDescription>
+                change details below for the current post
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <div className={'flex flex-col'}>
+                <FormField
+                  control={form.control}
+                  name="categoryId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
-                          <Input placeholder="ex: NextJs" {...field} />
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a category" />
+                          </SelectTrigger>
                         </FormControl>
-                        <div>
-                          {postTags.length === 0 ? (
-                            <p className={'text-sm'}>
-                              Please Select a least one
-                            </p>
-                          ) : (
-                            postTags.map((value) => (
-                              <Badge key={value}>
-                                {value}
-                                <XOctagon
-                                  onClick={() => {
-                                    setPostTags([
-                                      ...postTags.filter(
-                                        (value1) => value1 != value
-                                      ),
-                                    ]);
-                                  }}
-                                  className={'ml-2 cursor-pointer'}
-                                />
-                              </Badge>
-                            ))
-                          )}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                        <SelectContent>
+                          {categoryList.map((value) => (
+                            <SelectItem value={value.id} key={value.id}>
+                              {value.categoryName}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="postMainImage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Post Image Url</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="ex: https://google.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className={'flex items-center gap-2'}>
+                  <div className={'flex-1'}>
+                    <FormField
+                      control={form.control}
+                      name="Tags"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Post Tags</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ex: NextJs" {...field} />
+                          </FormControl>
+                          <div>
+                            {postTags.length === 0 ? (
+                              <p className={'text-sm'}>
+                                Please Select a least one
+                              </p>
+                            ) : (
+                              postTags.map((value) => (
+                                <Badge key={value}>
+                                  {value}
+                                  <XOctagon
+                                    onClick={() => {
+                                      setPostTags([
+                                        ...postTags.filter(
+                                          (value1) => value1 != value
+                                        ),
+                                      ]);
+                                    }}
+                                    className={'ml-2 cursor-pointer'}
+                                  />
+                                </Badge>
+                              ))
+                            )}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button
+                    type={'button'}
+                    onClick={() => {
+                      if (!form.getFieldState('Tags').invalid) {
+                        if (
+                          postTags.filter(
+                            (itemvalue) =>
+                              itemvalue.toLowerCase() ==
+                              form.getValues('Tags')?.toLowerCase()
+                          ).length === 0
+                        )
+                          setPostTags([
+                            ...postTags,
+                            `${form.getValues('Tags')?.toString()}`,
+                          ]);
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
                 </div>
-                <Button
-                  type={'button'}
-                  onClick={() => {
-                    if (!form.getFieldState('Tags').invalid) {
-                      if (
-                        postTags.filter(
-                          (itemvalue) =>
-                            itemvalue.toLowerCase() ==
-                            form.getValues('Tags')?.toLowerCase()
-                        ).length === 0
-                      )
-                        setPostTags([
-                          ...postTags,
-                          `${form.getValues('Tags')?.toString()}`,
-                        ]);
-                    }
-                  }}
-                >
-                  Add
-                </Button>
+
+                <div className={'col-span-2'}></div>
               </div>
 
-              <div className={'col-span-2'}></div>
-            </div>
-
-            <Button
-              className="flex gap-4 self-end fixed top-20 right-2 z-40"
-              disabled={isLoading}
-            >
-              {!isLoading ? (
-                <>
-                  <Save />
-                  Save changes
-                </>
-              ) : (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              )}
-            </Button>
-          </CardContent>
-        </Card>
-        <div className={'h-fit flex-1 pb-32'}>
+              <Button
+                className="flex gap-4 self-end fixed top-20 right-2 z-40"
+                disabled={isLoading}
+              >
+                {!isLoading ? (
+                  <>
+                    <Save />
+                    Save
+                  </>
+                ) : (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                )}
+              </Button>
+              <Button className="flex self-end fixed top-20 right-32 z-40">
+                Preview
+                <MoveUpRightIcon className={'h-4'} />
+              </Button>
+            </CardContent>
+          </Card>
+          <div className={'h-fit flex-1 pb-32'}></div>
+        </form>
+        <div className={'flex-1'}>
           <div className="space-y-2">
             <FormField
               control={form.control}
@@ -252,14 +261,11 @@ const EditPostForm = ({
                       rows={1}
                       maxLength={120}
                       cols={1}
-                      style={{ resize: 'none', height: '150px !important' }}
+                      style={{ resize: 'none' }}
                       className={cn(
                         'scroll-m-20 min-h-[60px] text-3xl font-bold tracking-tight border-none outline-none focus-visible:outline-none focus-visible:border-none focus-visible:ring-0 p-0'
                       )}
                       placeholder="Article Title ..."
-                      onKeyUp={(e: any) => {
-                        setTitle(e.target.value);
-                      }}
                       {...field}
                     />
                   </FormControl>
@@ -274,9 +280,6 @@ const EditPostForm = ({
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      onKeyUp={(event: any) => {
-                        setDescription(event.target.value);
-                      }}
                       style={{ resize: 'none' }}
                       rows={1}
                       cols={1}
@@ -298,7 +301,7 @@ const EditPostForm = ({
           <Separator className="my-4 md:my-6" />
           <Tiptap editor={editor} />
         </div>
-      </form>
+      </div>
     </Form>
   );
 };

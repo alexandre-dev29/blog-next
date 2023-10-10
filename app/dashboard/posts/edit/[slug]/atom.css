@@ -172,3 +172,7 @@ pre.line-numbers > code {
     padding-right: 0.8em;
     text-align: right;
 }
+
+a {
+    @apply underline underline-offset-4 cursor-pointer ;
+}
