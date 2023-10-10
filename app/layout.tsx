@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/config/site';
 import { categories, DbConnection, posts } from '@/db/src';
 import { cn } from '@/lib/utils';
+import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { Inter } from 'next/font/google';
@@ -67,6 +68,7 @@ export default async function RootLayout({
             <Toaster />
           </ThemeProvider>
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );
