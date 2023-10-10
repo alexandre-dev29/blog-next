@@ -336,4 +336,14 @@ div[data-youtube-video] {
     padding: 0.5em 1em;
 }
 
+.tipTapFileDiv {
+    @apply w-[400px] relative border-2 border-gray-300 border-dashed rounded-lg p-6;
+}
 
+.tipTapFileImage {
+    @apply mx-auto h-12 w-12;
+}
+
+.tipTapFileInput {
+    @apply absolute inset-0 w-full h-full opacity-0 z-50;
+}

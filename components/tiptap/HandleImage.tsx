@@ -8,6 +8,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { cloudinaryUploadImage } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Tippy from '@tippyjs/react';
 import { Editor } from '@tiptap/react';
@@ -53,6 +56,16 @@ const HandleImage = ({
     }
   }
 
+  async function handleImageUpload(file: any) {
+    const imageFile = file.target.files[0];
+    const result = await cloudinaryUploadImage(imageFile);
+    if (editor) {
+      editor.commands.insertContent(`<img src="${result}" alt="${result}" />`);
+      setIsOpen(false);
+      form.reset({ imageUrl: '', altText: '' });
+    }
+  }
+
   return (
     <Tippy
       interactive={true}
@@ -61,45 +74,62 @@ const HandleImage = ({
       visible={isOpen}
       delay={100}
       className={
-        'bg-white dark:bg-gray-900 border-2 p-4 shadow-sm  w-[350px] mb-4'
+        'bg-white dark:bg-gray-900 border-2 p-4 shadow-sm  w-[400px] mb-4'
       }
       content={
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className={'flex gap-4 flex-col'}>
-              <FormField
-                control={form.control}
-                name="imageUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Url</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ex: https://google.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="altText"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alt text</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ex: image animal" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+        <Tabs defaultValue="withUrl" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="withUrl">Change using url</TabsTrigger>
+            <TabsTrigger value="uploadNewImage">Upload a new image</TabsTrigger>
+          </TabsList>
+          <TabsContent value="uploadNewImage">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="picture">Picture</Label>
+              <Input id="picture" type="file" onChange={handleImageUpload} />
             </div>
+          </TabsContent>
+          <TabsContent value="withUrl">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className={'flex gap-4 flex-col'}>
+                  <FormField
+                    control={form.control}
+                    name="imageUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Url</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="ex: https://google.com"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="altText"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Alt text</FormLabel>
+                        <FormControl>
+                          <Input placeholder="ex: image animal" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-            <Button type="submit" className={'mx-auto flex mt-2'}>
-              {isEdit ? 'Edit' : 'Insert'}
-            </Button>
-          </form>
-        </Form>
+                <Button type="submit" className={'mx-auto flex mt-2'}>
+                  {isEdit ? 'Edit' : 'Insert'}
+                </Button>
+              </form>
+            </Form>
+          </TabsContent>
+        </Tabs>
       }
     >
       <p></p>

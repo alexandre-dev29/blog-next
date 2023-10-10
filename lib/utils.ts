@@ -1,10 +1,7 @@
-import { DbConnection, posts } from '@/db/src';
-import GenerateMdxSource from '@/lib/GenerateMdxSource';
+import { toast } from '@/components/ui/use-toast';
 import { Users } from '@/types/allTypes';
 import axios from 'axios';
 import { clsx, type ClassValue } from 'clsx';
-import { eq } from 'drizzle-orm';
-import matter from 'gray-matter';
 import { Session } from 'next-auth';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,12 +9,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const cloudinaryUploadImage = async (file: any) => {
+export const cloudinaryUploadImage = async (file: any): Promise<string> => {
+  toast({
+    title: 'Uploading your image',
+    description: 'please wait while your image is processing',
+  });
   const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`;
   const data = new FormData();
   data.append('file', file);
   data.append('upload_preset', 'community-blog'); // note that you must create an upload preset on your cloudinary and paste the name here
   const responseData = await axios.post(url, data);
+  toast({
+    title: 'Done!',
+    description: 'your image has been processed',
+    className: 'bg-green-500 text-white',
+  });
   return responseData.data.secure_url;
 };
 

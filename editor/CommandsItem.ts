@@ -3,7 +3,6 @@ import {
   Heading1,
   Heading2,
   Heading3,
-  ImagePlusIcon,
   ListIcon,
   ListOrderedIcon,
   TextQuoteIcon,
@@ -81,17 +80,12 @@ const getSuggestionItems = (values: any) => {
       icon: CodeIcon,
       description: 'Insert a code block',
       command: ({ editor, range }: any) => {
-        editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
-      },
-    },
-
-    {
-      title: 'Image',
-      icon: ImagePlusIcon,
-      description: 'Upload Image',
-      command: ({ editor, range }: any) => {
-        console.log('call some function from parent');
-        editor.chain().focus().deleteRange(range).setNode('paragraph').run();
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleCodeBlock({ language: 'css' })
+          .run();
       },
     },
   ]
