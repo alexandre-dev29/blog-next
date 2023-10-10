@@ -1,9 +1,9 @@
 import ArticleCard from '@/components/common/article-card';
 import { Separator } from '@/components/ui/separator';
 import { categories, DbConnection, posts } from '@/db/src';
+import { countUserVisit } from '@/lib/countVisitUtil';
 import { selectPostsSchema } from '@/types/allTypes';
 import { eq } from 'drizzle-orm';
-import { cookies } from 'next/headers';
 import React from 'react';
 
 export default async function Index({ params }: { params: { slug: string } }) {
@@ -17,6 +17,9 @@ export default async function Index({ params }: { params: { slug: string } }) {
         },
       },
     });
+  await countUserVisit({
+    urlVisited: `/category/${params.slug}`,
+  });
 
   return (
     <div className={'min-h-screen pb-20'}>

@@ -148,7 +148,7 @@ export function GenerateMetaDataForAuthor({
     openGraph: {
       siteName: siteConfig.name,
       title: userDatas.fullName,
-      description: userDatas.fullName,
+      description: `${userDatas.biography}`,
       url: `${FRONT_URL}/post/${userDatas.fullName}`,
       type: 'article',
       images: [

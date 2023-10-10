@@ -12,8 +12,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { Inter } from 'next/font/google';
-import { cookies, headers } from 'next/headers';
-import { userAgent } from 'next/server';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -54,9 +52,7 @@ export default async function RootLayout({
     .select({ slug: posts.postSlug, title: posts.postTitle })
     .from(posts);
   const session = await getServerSession();
-  const cookiesvalues = cookies().get('session-id');
-  console.log(cookiesvalues);
-  const { ua } = userAgent({ headers: headers() });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body

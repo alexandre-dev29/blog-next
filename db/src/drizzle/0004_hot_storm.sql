@@ -1,0 +1,1 @@
+ALTER TABLE "UserVisites" ALTER COLUMN "deviceBrowser" DROP NOT NULL;

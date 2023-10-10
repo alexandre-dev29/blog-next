@@ -2,6 +2,7 @@ import ArticleCard from '@/components/common/article-card';
 import CustomMainImage from '@/components/images/custom-main-image';
 import { Separator } from '@/components/ui/separator';
 import { DbConnection, posts, users } from '@/db/src';
+import { countUserVisit } from '@/lib/countVisitUtil';
 import { GenerateMetaDataForAuthor } from '@/lib/GenerateMetaData';
 import { selectPostsSchema } from '@/types/allTypes';
 import { eq } from 'drizzle-orm';
@@ -14,6 +15,10 @@ export default async function Index({ params }: { params: { id: string } }) {
     with: {
       posts: { with: { category: true }, where: eq(posts.isPublished, true) },
     },
+  });
+  await countUserVisit({
+    urlVisited: `/author/${params.id}`,
+    authorVisited: params.id,
   });
   return (
     <div className={'min-h-screen pb-28'}>

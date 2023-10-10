@@ -2,6 +2,7 @@ import ArticleCard from '@/components/common/article-card';
 import { FeaturedArticle } from '@/components/common/featured-article';
 import { Separator } from '@/components/ui/separator';
 import { DbConnection, posts } from '@/db/src';
+import { countUserVisit } from '@/lib/countVisitUtil';
 import { selectPostsSchema } from '@/types/allTypes';
 import { eq } from 'drizzle-orm';
 
@@ -19,6 +20,9 @@ export default async function Index() {
   const featuredPost = selectPostsSchema.parse(
     allFeaturedArticles.length === 0 ? allPosts[0] : allFeaturedArticles[0]
   );
+  await countUserVisit({
+    urlVisited: '/',
+  });
 
   return (
     <>

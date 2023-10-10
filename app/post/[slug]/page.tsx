@@ -6,6 +6,7 @@ import { DashboardTableOfContents } from '@/components/toc';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { DbConnection, posts } from '@/db/src';
+import { countUserVisit } from '@/lib/countVisitUtil';
 import GenerateMdxSource from '@/lib/GenerateMdxSource';
 import GenerateMetaData from '@/lib/GenerateMetaData';
 import { getTableOfContents } from '@/lib/toc';
@@ -21,6 +22,11 @@ export default async function Index({ params }: { params: { slug: string } }) {
   const postData = await database.query.posts.findFirst({
     with: { author: true, category: true },
     where: eq(posts.postSlug, params.slug),
+  });
+  await countUserVisit({
+    slugOfPost: params.slug,
+    urlVisited: params.slug,
+    authorVisited: postData?.authorId,
   });
   if (postData) {
     database

@@ -4,6 +4,7 @@ import { NextFetchEvent, NextRequest } from 'next/server';
 export const withSessionId: MiddlewareFactory = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
+    const { ip, geo } = request;
     const res = await next(request, _next);
 
     if (!['/dashboard', '/api'].some((path) => pathname.includes(path))) {
@@ -17,6 +18,10 @@ export const withSessionId: MiddlewareFactory = (next) => {
           );
         }
       }
+    }
+    if (res) {
+      res.headers.set('currentIp', `${ip}`);
+      res.headers.set('geo', `${JSON.stringify({ ...geo })}`);
     }
     return res;
   };

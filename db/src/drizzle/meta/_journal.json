@@ -22,6 +22,27 @@
       "when": 1696945960393,
       "tag": "0002_gigantic_sabretooth",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1696946607117,
+      "tag": "0003_eminent_darwin",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1696946647503,
+      "tag": "0004_hot_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1696946689195,
+      "tag": "0005_shocking_riptide",
+      "breakpoints": true
     }
   ]
 }
