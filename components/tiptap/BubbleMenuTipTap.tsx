@@ -13,6 +13,7 @@ import {
   Bold,
   CodeIcon,
   Edit,
+  HighlighterIcon,
   Italic,
   LanguagesIcon,
   Link,
@@ -134,6 +135,33 @@ const BubbleMenuTipTap = ({ editor }: { editor: Editor | null }) => {
                 data-state={`${editor.isActive('link') ? 'on' : 'off'}`}
               >
                 <Link className="h-4 w-4" />
+              </Toggle>
+              <Toggle
+                onClick={() => {
+                  editor
+                    .chain()
+                    .focus()
+                    .extendMarkRange('link')
+                    .toggleHighlight()
+                    .run();
+                }}
+                aria-pressed={`${
+                  editor.isActive('highlight') ? 'true' : 'false'
+                }`}
+                data-state={`${editor.isActive('highlight') ? 'on' : 'off'}`}
+                variant={'outline'}
+                aria-label="Highlight"
+              >
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <HighlighterIcon className="h-4 w-4" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Highlight</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </Toggle>
             </div>
           ) : (

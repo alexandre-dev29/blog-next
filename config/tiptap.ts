@@ -6,6 +6,8 @@ import renderItems from '@/editor/renderItems';
 import { cloudinaryUploadImage } from '@/lib/utils';
 import { EditorOptions } from '@tiptap/core';
 import { BulletList } from '@tiptap/extension-bullet-list';
+import { Highlight } from '@tiptap/extension-highlight';
+import { HorizontalRule } from '@tiptap/extension-horizontal-rule';
 import { Link } from '@tiptap/extension-link';
 import { OrderedList } from '@tiptap/extension-ordered-list';
 import { Placeholder } from '@tiptap/extension-placeholder';
@@ -45,6 +47,11 @@ export const tipTapEditorConfig = (content: string): Partial<EditorOptions> => {
         HTMLAttributes: {
           class: 'olTipTap',
         },
+      }),
+      HorizontalRule.configure({ HTMLAttributes: { class: 'myHrLine' } }),
+      Highlight.configure({
+        multicolor: true,
+        HTMLAttributes: { class: 'highlightColor' },
       }),
       Markdown,
       CodeBlockPrism.configure({ defaultLanguage: 'text' }),

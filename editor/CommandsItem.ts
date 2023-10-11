@@ -1,5 +1,6 @@
 import {
   CodeIcon,
+  DivideIcon,
   Heading1,
   Heading2,
   Heading3,
@@ -86,6 +87,14 @@ const getSuggestionItems = (values: any) => {
           .deleteRange(range)
           .toggleCodeBlock({ language: 'css' })
           .run();
+      },
+    },
+    {
+      title: 'Divider',
+      icon: DivideIcon,
+      description: 'Insert an horizontal line',
+      command: ({ editor, range }: any) => {
+        editor.chain().focus().deleteRange(range).setHorizontalRule().run();
       },
     },
   ]
