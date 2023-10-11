@@ -5,7 +5,9 @@ import getSuggestionItems from '@/editor/CommandsItem';
 import renderItems from '@/editor/renderItems';
 import { cloudinaryUploadImage } from '@/lib/utils';
 import { EditorOptions } from '@tiptap/core';
+import { BulletList } from '@tiptap/extension-bullet-list';
 import { Link } from '@tiptap/extension-link';
+import { OrderedList } from '@tiptap/extension-ordered-list';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
 import Youtube from '@tiptap/extension-youtube';
@@ -29,6 +31,21 @@ export const tipTapEditorConfig = (content: string): Partial<EditorOptions> => {
         },
       }),
       Typography,
+      BulletList.configure({
+        HTMLAttributes: {
+          class: 'ulTipTap',
+        },
+      }),
+      Link.configure({
+        HTMLAttributes: {
+          class: 'linkTipTap',
+        },
+      }),
+      OrderedList.configure({
+        HTMLAttributes: {
+          class: 'olTipTap',
+        },
+      }),
       Markdown,
       CodeBlockPrism.configure({ defaultLanguage: 'text' }),
       createImageExtension(cloudinaryUploadImage),

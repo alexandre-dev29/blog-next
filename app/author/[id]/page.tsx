@@ -21,7 +21,7 @@ export default async function Index({ params }: { params: { id: string } }) {
     authorVisited: params.id,
   });
   return (
-    <div className={'min-h-screen pb-28'}>
+    <div className={'min-h-screen pb-28 pt-8'}>
       <section
         className={
           'flex flex-col items-center  gap-8 px-6 pb-8 md:px-32 lg:px-48 xl:px-64'

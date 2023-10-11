@@ -173,6 +173,18 @@ pre.line-numbers > code {
     text-align: right;
 }
 
+.ulTipTap {
+    list-style: circle !important;
+}
+
+.olTipTap {
+    list-style: decimal !important;
+}
+
+.linkTipTap {
+    @apply underline underline-offset-4 cursor-pointer ;
+}
+
 a {
     @apply underline underline-offset-4 cursor-pointer ;
 }

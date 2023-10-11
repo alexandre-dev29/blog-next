@@ -2,6 +2,7 @@ import ArticleTable from '@/components/dashboard/article-table';
 import InfoCard from '@/components/dashboard/info-card';
 import { Overview } from '@/components/dashboard/overview';
 import PropertyReferals from '@/components/dashboard/Referals';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -13,7 +14,9 @@ import { DbConnection, posts } from '@/db/src';
 import { getUserFromSession } from '@/lib/utils';
 import { selectPostsSchema } from '@/types/allTypes';
 import { eq } from 'drizzle-orm';
+import { FileTextIcon, ListChecksIcon, UsersIcon } from 'lucide-react';
 import { getServerSession } from 'next-auth';
+import Link from 'next/link';
 
 export default async function Index() {
   const session = await getServerSession();
@@ -40,7 +43,26 @@ export default async function Index() {
 
   return (
     <section className={'flex flex-col gap-8 px-8 py-6'}>
-      <div className={'grid grid-cols-4 gap-12'}>
+      <div className={'grid gap-2 grid-cols-2 md:flex md:gap-8 '}>
+        <Link href={'/dashboard/posts'}>
+          <Button className={'flex gap-2'}>
+            <FileTextIcon />
+            Articles
+          </Button>
+        </Link>
+        <Link href={'/dashboard/profile'}>
+          <Button className={'flex gap-2'}>
+            <UsersIcon /> My Profile
+          </Button>
+        </Link>
+        <Link href={'/dashboard/categories'}>
+          <Button className={'flex gap-2'}>
+            <ListChecksIcon />
+            Categories
+          </Button>
+        </Link>
+      </div>
+      <div className={'grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-12'}>
         <InfoCard
           title={'Total Views'}
           value={`${totalViews}`}
