@@ -2,6 +2,7 @@ import Iframe from '@/components/tiptap/Iframe';
 import { createImageExtension } from '@/config/customImage';
 import Commands from '@/editor/Commands';
 import getSuggestionItems from '@/editor/CommandsItem';
+import EmbedableYoutube from '@/editor/extensions/EmbedableYoutube';
 import renderItems from '@/editor/renderItems';
 import { cloudinaryUploadImage } from '@/lib/utils';
 import { EditorOptions } from '@tiptap/core';
@@ -32,6 +33,7 @@ export const tipTapEditorConfig = (content: string): Partial<EditorOptions> => {
           render: renderItems,
         },
       }),
+      EmbedableYoutube,
       Typography,
       BulletList.configure({
         HTMLAttributes: {
@@ -65,6 +67,7 @@ export const tipTapEditorConfig = (content: string): Partial<EditorOptions> => {
       }),
     ],
     content: content,
+    autofocus: false,
     editorProps: {},
   };
 };

@@ -1,3 +1,4 @@
+import { Editor } from '@tiptap/react';
 import {
   CodeIcon,
   DivideIcon,
@@ -7,6 +8,7 @@ import {
   ListIcon,
   ListOrderedIcon,
   TextQuoteIcon,
+  YoutubeIcon,
 } from 'lucide-react';
 
 const getSuggestionItems = (values: any) => {
@@ -95,6 +97,19 @@ const getSuggestionItems = (values: any) => {
       description: 'Insert an horizontal line',
       command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).setHorizontalRule().run();
+      },
+    },
+    {
+      title: 'Embeddable',
+      icon: YoutubeIcon,
+      description: 'Insert youtube',
+      command: ({ editor, range }: { editor: Editor; range: any }) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .insertContent(`<youtubeEmbeddable></youtubeEmbeddable>`)
+          .run();
       },
     },
   ]

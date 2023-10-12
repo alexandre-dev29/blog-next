@@ -1,10 +1,5 @@
-import React from "react"
-import {zodResolver} from "@hookform/resolvers/zod"
-import {Editor} from "@tiptap/react"
-import {useForm} from "react-hook-form"
-import * as z from "zod"
-
-import {Button} from "@/components/ui/button"
+import CustomModal from '@/components/tiptap/CustomModal';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,43 +7,47 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
-import CustomModal from "@/components/tiptap/CustomModal"
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Editor } from '@tiptap/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 const HandleImage = ({
-                       editor,
-                       setIsOpen,
-                       isOpen,
-                       isEdit,
-                     }: {
-  editor: Editor | null
-  isOpen: boolean
-  setIsOpen: any
-  isEdit: boolean
+  editor,
+  setIsOpen,
+  isOpen,
+  isEdit,
+}: {
+  editor: Editor | null;
+  isOpen: boolean;
+  setIsOpen: any;
+  isEdit: boolean;
 }) => {
   const formSchema = z.object({
     youtubeUrl: z.string().url({
-      message: "Please write a correct youtube url",
+      message: 'Please write a correct youtube url',
     }),
     width: z.string(),
     height: z.string(),
-  })
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      youtubeUrl: "",
+      youtubeUrl: '',
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (editor) {
       editor.commands
         .insertContent(`<div class="youtube_container" data-youtube-video>
-        <iframe src="${values.youtubeUrl}" class="youtube_frame" width="${values.width} height=${values.height}"></iframe>
-      </div>`)
-      setIsOpen(false)
-      form.reset({youtubeUrl: ""})
+        <iframe src="${values.youtubeUrl}" class="youtube_frame" width="100%" height="100%"></iframe>
+      </div>`);
+      setIsOpen(false);
+      form.reset({ youtubeUrl: '' });
     }
   }
 
@@ -62,7 +61,7 @@ const HandleImage = ({
           <FormField
             control={form.control}
             name="youtubeUrl"
-            render={({field}) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Youtube Url</FormLabel>
                 <FormControl>
@@ -71,43 +70,43 @@ const HandleImage = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage/>
+                <FormMessage />
               </FormItem>
             )}
           />
-          <div className={"flex gap-6"}>
+          <div className={'flex gap-6'}>
             <FormField
               control={form.control}
               name="width"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Width</FormLabel>
                   <FormControl>
-                    <Input placeholder="ex: 640" {...field} type={"number"}/>
+                    <Input placeholder="ex: 640" {...field} type={'number'} />
                   </FormControl>
-                  <FormMessage/>
+                  <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="height"
-              render={({field}) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Height</FormLabel>
                   <FormControl>
-                    <Input placeholder="ex: 480" {...field} type={"number"}/>
+                    <Input placeholder="ex: 480" {...field} type={'number'} />
                   </FormControl>
-                  <FormMessage/>
+                  <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button type="submit">{isEdit ? "Edit" : "Insert"}</Button>
+          <Button type="submit">{isEdit ? 'Edit' : 'Insert'}</Button>
         </form>
       </Form>
     </CustomModal>
-  )
-}
+  );
+};
 
-export default HandleImage
+export default HandleImage;

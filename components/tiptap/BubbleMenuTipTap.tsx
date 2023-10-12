@@ -28,6 +28,13 @@ const isImageSelection = (editor: Editor | any) => {
     editor.state.selection.node.type.name === 'image'
   );
 };
+const isEmbeddable = (editor: Editor | any) => {
+  return (
+    editor?.state.selection.node &&
+    editor.state.selection.node.type &&
+    editor.state.selection.node.type.name === 'youtubeEmbeddable'
+  );
+};
 
 const BubbleMenuTipTap = ({ editor }: { editor: Editor | null }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +47,11 @@ const BubbleMenuTipTap = ({ editor }: { editor: Editor | null }) => {
         <BubbleMenu
           editor={editor}
           tippyOptions={{ duration: 100 }}
-          className={'bg-gray-200 dark:bg-gray-700 flex gap-2 p-2 rounded-md'}
+          className={`${
+            !isEmbeddable(editor)
+              ? 'bg-gray-200 dark:bg-gray-700 flex gap-2 p-2 rounded-md'
+              : ''
+          }`}
         >
           <HandleLinks editor={editor} isOpen={isOpen} setIsOpen={setIsOpen} />
           <HandleProgrammingLanguage
@@ -55,126 +66,134 @@ const BubbleMenuTipTap = ({ editor }: { editor: Editor | null }) => {
             isEdit={true}
           />
 
-          {!isImageSelection(editor) ? (
-            <div className={'flex gap-2'}>
-              <Toggle
-                onClick={() => editor.chain().focus().toggleBold().run()}
-                variant={'outline'}
-                aria-label="Toggle bold"
-                aria-pressed={`${editor.isActive('bold') ? 'true' : 'false'}`}
-                data-state={`${editor.isActive('bold') ? 'on' : 'off'}`}
-              >
-                <Bold className="h-4 w-4" />
-              </Toggle>
-              <Toggle
-                onClick={() => editor.chain().focus().toggleItalic().run()}
-                variant={'outline'}
-                aria-label="Toggle italic"
-                aria-pressed={`${editor.isActive('italic') ? 'true' : 'false'}`}
-                data-state={`${editor.isActive('italic') ? 'on' : 'off'}`}
-              >
-                <Italic className="h-4 w-4" />
-              </Toggle>
-
-              <Toggle
-                onClick={() => editor.chain().focus().toggleStrike().run()}
-                variant={'outline'}
-                aria-label="Toggle strke"
-                aria-pressed={`${editor.isActive('strike') ? 'true' : 'false'}`}
-                data-state={`${editor.isActive('strike') ? 'on' : 'off'}`}
-              >
-                <Strikethrough className="h-4 w-4" />
-              </Toggle>
-              <Toggle
-                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                variant={'outline'}
-                aria-label="Toggle Code block"
-                aria-pressed={`${
-                  editor.isActive('codeBlock') ? 'true' : 'false'
-                }`}
-                data-state={`${editor.isActive('codeBlock') ? 'on' : 'off'}`}
-              >
-                <CodeIcon className="h-4 w-4" />
-              </Toggle>
-              {editor.isActive('codeBlock') ? (
+          {!isEmbeddable(editor) ? (
+            !isImageSelection(editor) ? (
+              <div className={'flex gap-2'}>
                 <Toggle
-                  onClick={() => setIsLanguageOpen(true)}
+                  onClick={() => editor.chain().focus().toggleBold().run()}
                   variant={'outline'}
-                  aria-label="Change languages"
+                  aria-label="Toggle bold"
+                  aria-pressed={`${editor.isActive('bold') ? 'true' : 'false'}`}
+                  data-state={`${editor.isActive('bold') ? 'on' : 'off'}`}
                 >
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <LanguagesIcon className="h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Change Programming language</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Bold className="h-4 w-4" />
                 </Toggle>
-              ) : (
-                ''
-              )}
-              <Toggle
-                onClick={() => {
-                  if (editor.isActive('link')) {
+                <Toggle
+                  onClick={() => editor.chain().focus().toggleItalic().run()}
+                  variant={'outline'}
+                  aria-label="Toggle italic"
+                  aria-pressed={`${
+                    editor.isActive('italic') ? 'true' : 'false'
+                  }`}
+                  data-state={`${editor.isActive('italic') ? 'on' : 'off'}`}
+                >
+                  <Italic className="h-4 w-4" />
+                </Toggle>
+
+                <Toggle
+                  onClick={() => editor.chain().focus().toggleStrike().run()}
+                  variant={'outline'}
+                  aria-label="Toggle strke"
+                  aria-pressed={`${
+                    editor.isActive('strike') ? 'true' : 'false'
+                  }`}
+                  data-state={`${editor.isActive('strike') ? 'on' : 'off'}`}
+                >
+                  <Strikethrough className="h-4 w-4" />
+                </Toggle>
+                <Toggle
+                  onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                  variant={'outline'}
+                  aria-label="Toggle Code block"
+                  aria-pressed={`${
+                    editor.isActive('codeBlock') ? 'true' : 'false'
+                  }`}
+                  data-state={`${editor.isActive('codeBlock') ? 'on' : 'off'}`}
+                >
+                  <CodeIcon className="h-4 w-4" />
+                </Toggle>
+                {editor.isActive('codeBlock') ? (
+                  <Toggle
+                    onClick={() => setIsLanguageOpen(true)}
+                    variant={'outline'}
+                    aria-label="Change languages"
+                  >
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <LanguagesIcon className="h-4 w-4" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Change Programming language</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Toggle>
+                ) : (
+                  ''
+                )}
+                <Toggle
+                  onClick={() => {
+                    if (editor.isActive('link')) {
+                      editor
+                        .chain()
+                        .focus()
+                        .extendMarkRange('link')
+                        .unsetLink()
+                        .run();
+                    } else {
+                      setIsOpen(true);
+                    }
+                  }}
+                  variant={'outline'}
+                  aria-label="Toggle strke"
+                  aria-pressed={`${editor.isActive('link') ? 'true' : 'false'}`}
+                  data-state={`${editor.isActive('link') ? 'on' : 'off'}`}
+                >
+                  <Link className="h-4 w-4" />
+                </Toggle>
+                <Toggle
+                  onClick={() => {
                     editor
                       .chain()
                       .focus()
                       .extendMarkRange('link')
-                      .unsetLink()
+                      .toggleHighlight()
                       .run();
-                  } else {
-                    setIsOpen(true);
+                  }}
+                  aria-pressed={`${
+                    editor.isActive('highlight') ? 'true' : 'false'
+                  }`}
+                  data-state={`${editor.isActive('highlight') ? 'on' : 'off'}`}
+                  variant={'outline'}
+                  aria-label="Highlight"
+                >
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <HighlighterIcon className="h-4 w-4" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Highlight</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Toggle>
+              </div>
+            ) : (
+              <div className={'pr-2.5'}>
+                <Edit
+                  className={
+                    'cursor-pointer transition-all duration-300 hover:scale-105 transform-gpu'
                   }
-                }}
-                variant={'outline'}
-                aria-label="Toggle strke"
-                aria-pressed={`${editor.isActive('link') ? 'true' : 'false'}`}
-                data-state={`${editor.isActive('link') ? 'on' : 'off'}`}
-              >
-                <Link className="h-4 w-4" />
-              </Toggle>
-              <Toggle
-                onClick={() => {
-                  editor
-                    .chain()
-                    .focus()
-                    .extendMarkRange('link')
-                    .toggleHighlight()
-                    .run();
-                }}
-                aria-pressed={`${
-                  editor.isActive('highlight') ? 'true' : 'false'
-                }`}
-                data-state={`${editor.isActive('highlight') ? 'on' : 'off'}`}
-                variant={'outline'}
-                aria-label="Highlight"
-              >
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <HighlighterIcon className="h-4 w-4" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Highlight</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Toggle>
-            </div>
+                  onClick={() => {
+                    setIsModalImageOpen(true);
+                  }}
+                />
+              </div>
+            )
           ) : (
-            <div className={'pr-2.5'}>
-              <Edit
-                className={
-                  'cursor-pointer transition-all duration-300 hover:scale-105 transform-gpu'
-                }
-                onClick={() => {
-                  setIsModalImageOpen(true);
-                }}
-              />
-            </div>
+            ''
           )}
         </BubbleMenu>
       )}
