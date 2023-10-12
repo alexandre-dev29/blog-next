@@ -1,7 +1,7 @@
-import { createImageExtension } from '@/config/customImage';
 import Commands from '@/editor/Commands';
 import getSuggestionItems from '@/editor/CommandsItem';
-import EmbedableYoutube from '@/editor/extensions/EmbedableYoutube';
+import { createImageExtension } from '@/editor/extensions/customImage';
+import EmbedableYoutube from '@/editor/extensions/EmbedableExtension';
 import Iframe from '@/editor/extensions/Iframe';
 import renderItems from '@/editor/renderItems';
 import { cloudinaryUploadImage } from '@/lib/utils';

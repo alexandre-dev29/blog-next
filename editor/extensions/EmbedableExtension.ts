@@ -1,4 +1,5 @@
 import EmbeddableTipTapComponent from '@/editor/components/EmbeddableElement';
+import { EmbeddedType } from '@/types/uiTypes';
 import { mergeAttributes, Node, ReactNodeViewRenderer } from '@tiptap/react';
 
 export default Node.create({
@@ -13,12 +14,25 @@ export default Node.create({
       isPopUpVisible: {
         default: true,
       },
-      count: {
-        default: 0,
+      embeddedType: {
+        default: EmbeddedType.Youtube,
       },
-      youtubeUrl: {
+      embeddedUrl: {
         default: '',
       },
+    };
+  },
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  addCommands() {
+    return {
+      insertEmbeddedElement:
+        () =>
+        ({ commands }: any) => {
+          return commands.insertContent({
+            type: 'embeddableElement',
+          });
+        },
     };
   },
   parseHTML() {

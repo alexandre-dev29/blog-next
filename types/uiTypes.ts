@@ -54,6 +54,12 @@ export enum ResourceType {
   Authors,
 }
 
+export enum EmbeddedType {
+  Youtube = 'Youtube',
+  CodePen = 'CodePen',
+  CodeSandBox = 'CodeSandBox',
+}
+
 export enum ActionType {
   Create,
   Delete,

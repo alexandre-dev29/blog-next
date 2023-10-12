@@ -1,6 +1,8 @@
 import { Editor } from '@tiptap/react';
 import {
   CodeIcon,
+  CodepenIcon,
+  CodesandboxIcon,
   DivideIcon,
   Heading1,
   Heading2,
@@ -100,7 +102,7 @@ const getSuggestionItems = (values: any) => {
       },
     },
     {
-      title: 'Embeddable',
+      title: 'Youtube',
       icon: YoutubeIcon,
       description: 'Insert youtube',
       command: ({ editor, range }: { editor: Editor; range: any }) => {
@@ -108,7 +110,37 @@ const getSuggestionItems = (values: any) => {
           .chain()
           .focus()
           .deleteRange(range)
-          .insertContent(`<youtubeEmbeddable></youtubeEmbeddable>`)
+          .insertContent(`<embeddableElement></embeddableElement>`)
+          .run();
+      },
+    },
+    {
+      title: 'Code SandBox',
+      icon: CodesandboxIcon,
+      description: 'Insert Code Sandbox',
+      command: ({ editor, range }: { editor: Editor; range: any }) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .insertContent(
+            `<embeddableElement embeddedType="CodeSandBox"></embeddableElement>`
+          )
+          .run();
+      },
+    },
+    {
+      title: 'Code Pen',
+      icon: CodepenIcon,
+      description: 'Insert Code Pen',
+      command: ({ editor, range }: { editor: Editor; range: any }) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .insertContent(
+            `<embeddableElement embeddedType="CodePen"></embeddableElement>`
+          )
           .run();
       },
     },

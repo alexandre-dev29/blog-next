@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
+import { EmbeddedType } from '@/types/uiTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Tippy from '@tippyjs/react';
 import { Editor, NodeViewWrapper } from '@tiptap/react';
@@ -56,9 +57,9 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
       isPopUpVisible: isPopUpVisible,
     });
   };
-  const setYoutubeUrl = (youtubeUrl: string) => {
+  const setEmbeddedUrl = (embeddedUrl: string) => {
     updateAttributes({
-      youtubeUrl: youtubeUrl,
+      embeddedUrl: embeddedUrl,
     });
   };
 
@@ -67,31 +68,50 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
     event?: BaseSyntheticEvent
   ) {
     event?.preventDefault();
-    const expression =
-      /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
-    const result = values.linkUrl.match(expression);
-    if (result) {
-      const youtubeId = result[1];
+    if (node.attrs.embeddedType === EmbeddedType.Youtube) {
+      const expression =
+        /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+      const result = values.linkUrl.match(expression);
+      if (result) {
+        const youtubeId = result[1];
 
-      const finalYoutubeUrl = `https://www.youtube.com/embed/${youtubeId}?feature=oembed`;
-      setYoutubeUrl(finalYoutubeUrl);
-      setIsVisible(false);
+        const finalYoutubeUrl = `https://www.youtube.com/embed/${youtubeId}?feature=oembed`;
+        setEmbeddedUrl(finalYoutubeUrl);
+        setIsVisible(false);
+      } else {
+        toast({
+          title: 'Error',
+          description: 'please enter a valid youtube link',
+          variant: 'destructive',
+        });
+      }
     } else {
-      toast({
-        title: 'Error',
-        description: 'please enter a valid youtube link',
-        variant: 'destructive',
-      });
+      setEmbeddedUrl(values.linkUrl);
+      setIsVisible(false);
     }
   }
+
+  const getPlaceholderText = (): string => {
+    switch (node.attrs.embeddedType) {
+      case EmbeddedType.Youtube:
+        return 'ex: https://www.youtube.com/watch?v=_uOgXpEHNbc';
+      case EmbeddedType.CodePen:
+        return 'ex: https://codepen.io/rcyou/embed/QEObEZ';
+      case EmbeddedType.CodeSandBox:
+        return 'https://codesandbox.io/embed/tiptap-react-image-upload-with-slash-command-0z9wq?hidenavigation=1&theme=dark';
+      default:
+        return '';
+    }
+  };
 
   return (
     <NodeViewWrapper className="dark:text-white" key={Math.random()}>
       <div
         onClick={() => togglePopup(true)}
+        style={{ height: '100px' }}
         className={`${
           node.attrs.isVisible ? 'flex' : 'hidden'
-        } cursor-pointer bg-red-400 w-full gap-4 h-32 border-dashed dark:border-gray-600 border-gray-400 border-2 rounded-xl  justify-center items-center`}
+        } cursor-pointer  bg-red-400 w-full gap-4  border-dashed dark:border-gray-600 border-gray-400 border-2 rounded-xl  justify-center items-center`}
       >
         <Tippy
           interactive={true}
@@ -99,9 +119,7 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
           onClickOutside={() => togglePopup(false)}
           visible={node.attrs.isPopUpVisible}
           delay={100}
-          className={
-            'text-black bg-white border-2 p-4 shadow-sm  w-[550px] mb-4'
-          }
+          className={'tippyEmbeddedPopup'}
           content={
             <Form {...formForLink}>
               <form
@@ -114,12 +132,12 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className={'text-black dark:text-white'}>
-                        Youtube Url
+                        {`${node.attrs.embeddedType} Url`}
                       </FormLabel>
                       <FormControl>
                         <Input
                           autoFocus={true}
-                          placeholder="ex: https://www.youtube.com/watch?v=_uOgXpEHNbc"
+                          placeholder={getPlaceholderText()}
                           {...field}
                         />
                       </FormControl>
@@ -127,7 +145,11 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
                     </FormItem>
                   )}
                 />
-                <Button className={'bg-blue-400'} type={'submit'}>
+                <Button
+                  style={{ backgroundColor: '@apply bg-blue-400' }}
+                  className={'bg-blue-400'}
+                  type={'submit'}
+                >
                   Save
                 </Button>
               </form>
@@ -141,16 +163,18 @@ const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
       </div>
 
       <div
-        className={`${
-          node.attrs.isVisible ? 'hidden' : 'block'
-        } youtube_container p-8`}
+        className={`${node.attrs.isVisible ? 'hidden' : 'block'} relative p-8`}
         data-youtube-video
       >
         <iframe
-          src={`${node.attrs.youtubeUrl}`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          src={`${node.attrs.embeddedUrl}`}
+          allow={
+            node.attrs.embeddedType === EmbeddedType.Youtube
+              ? `accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share`
+              : ''
+          }
           allowFullScreen
-          className="absolute top-0 left-0 w-[98%] h-[98%] border-0"
+          className="relative top-0 left-0 w-[95%] h-[95%] border-0 "
         ></iframe>
       </div>
     </NodeViewWrapper>

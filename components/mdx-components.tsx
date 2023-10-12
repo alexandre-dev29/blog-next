@@ -92,8 +92,8 @@ const mdxComponents = {
       {...props}
     />
   ),
-  EmbeddableElement: ({ youtubeurl, ...props }: any) => (
-    <EmbeddableMdxComp youtubeUrl={youtubeurl} />
+  EmbeddableElement: ({ embeddedurl, embeddedtype, ...props }: any) => (
+    <EmbeddableMdxComp embeddedurl={embeddedurl} embeddedtype={embeddedtype} />
   ),
 
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (

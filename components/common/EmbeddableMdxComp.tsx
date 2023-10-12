@@ -1,12 +1,24 @@
-export function EmbeddableMdxComp({ youtubeUrl }: { youtubeUrl: string }) {
+import { EmbeddedType } from '@/types/uiTypes';
+
+export function EmbeddableMdxComp({
+  embeddedurl,
+  embeddedtype,
+}: {
+  embeddedurl: string;
+  embeddedtype: EmbeddedType;
+}) {
   return (
-    <div className={'youtube_container'}>
+    <div className={'embedded_container'}>
       <iframe
-        src={youtubeUrl}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        src={embeddedurl}
+        allow={
+          embeddedtype === EmbeddedType.Youtube
+            ? 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            : ''
+        }
         allowFullScreen
         title="Embedded YouTube video"
-        className={'youtube_frame'}
+        className={'embedded_frame'}
       />
     </div>
   );
