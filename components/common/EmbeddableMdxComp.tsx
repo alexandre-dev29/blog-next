@@ -1,5 +1,4 @@
-export function YouTubeComp({ youtubeUrl }: { youtubeUrl: string }) {
-  console.log(youtubeUrl);
+export function EmbeddableMdxComp({ youtubeUrl }: { youtubeUrl: string }) {
   return (
     <div className={'youtube_container'}>
       <iframe

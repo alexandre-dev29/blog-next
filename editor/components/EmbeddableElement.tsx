@@ -11,14 +11,29 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Tippy from '@tippyjs/react';
-import { NodeViewWrapper } from '@tiptap/react';
+import { Editor, NodeViewWrapper } from '@tiptap/react';
 import { YoutubeIcon } from 'lucide-react';
 import React, { BaseSyntheticEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+interface EmbeddableElementProp {
+  node: { attrs: any };
+  updateAttributes: (attrs: any) => void;
+  selected: boolean;
+  editor: Editor;
+  getPos: () => number;
+  extension: Node;
+}
+
 // eslint-disable-next-line react/display-name
-export default (props: any) => {
+const EmbeddableTipTapComponent: React.FC<EmbeddableElementProp> = ({
+  editor,
+  node,
+  updateAttributes,
+  getPos,
+  extension,
+}) => {
   const formSchemaForLink = z.object({
     linkUrl: z.string().url({
       message: 'Please write a correct url.',
@@ -32,17 +47,17 @@ export default (props: any) => {
   });
 
   const setIsVisible = (isVisible: boolean) => {
-    props.updateAttributes({
+    updateAttributes({
       isVisible: isVisible,
     });
   };
   const togglePopup = (isPopUpVisible: boolean) => {
-    props.updateAttributes({
+    updateAttributes({
       isPopUpVisible: isPopUpVisible,
     });
   };
   const setYoutubeUrl = (youtubeUrl: string) => {
-    props.updateAttributes({
+    updateAttributes({
       youtubeUrl: youtubeUrl,
     });
   };
@@ -75,14 +90,14 @@ export default (props: any) => {
       <div
         onClick={() => togglePopup(true)}
         className={`${
-          props.node.attrs.isVisible ? 'flex' : 'hidden'
+          node.attrs.isVisible ? 'flex' : 'hidden'
         } cursor-pointer bg-red-400 w-full gap-4 h-32 border-dashed dark:border-gray-600 border-gray-400 border-2 rounded-xl  justify-center items-center`}
       >
         <Tippy
           interactive={true}
           interactiveBorder={20}
           onClickOutside={() => togglePopup(false)}
-          visible={props.node.attrs.isPopUpVisible}
+          visible={node.attrs.isPopUpVisible}
           delay={100}
           className={
             'text-black bg-white border-2 p-4 shadow-sm  w-[550px] mb-4'
@@ -127,19 +142,18 @@ export default (props: any) => {
 
       <div
         className={`${
-          props.node.attrs.isVisible ? 'hidden' : 'block'
-        } youtube_container `}
+          node.attrs.isVisible ? 'hidden' : 'block'
+        } youtube_container p-8`}
         data-youtube-video
       >
         <iframe
-          src={`${props.node.attrs.youtubeUrl}`}
+          src={`${node.attrs.youtubeUrl}`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          className="youtube_frame"
-          width="100%"
-          height="100%"
+          className="absolute top-0 left-0 w-[98%] h-[98%] border-0"
         ></iframe>
       </div>
     </NodeViewWrapper>
   );
 };
+export default EmbeddableTipTapComponent;

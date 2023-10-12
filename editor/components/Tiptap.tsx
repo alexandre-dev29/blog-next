@@ -1,6 +1,6 @@
 'use client';
 
-import BubbleMenuTipTap from '@/components/tiptap/BubbleMenuTipTap';
+import BubbleMenuTipTap from '@/editor/components/BubbleMenuTipTap';
 import { Editor, EditorContent } from '@tiptap/react';
 
 const Tiptap = ({ editor }: { editor: Editor | null }) => {

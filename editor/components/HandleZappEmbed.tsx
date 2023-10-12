@@ -1,4 +1,3 @@
-import CustomModal from '@/components/tiptap/CustomModal';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -9,6 +8,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import CustomModal from '@/editor/components/CustomModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Editor } from '@tiptap/react';
 import React from 'react';

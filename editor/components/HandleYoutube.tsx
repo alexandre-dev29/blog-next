@@ -1,4 +1,3 @@
-import CustomModal from '@/components/tiptap/CustomModal';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -9,13 +8,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import CustomModal from '@/editor/components/CustomModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Editor } from '@tiptap/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-const HandleImage = ({
+const HandleYoutube = ({
   editor,
   setIsOpen,
   isOpen,
@@ -109,4 +109,4 @@ const HandleImage = ({
   );
 };
 
-export default HandleImage;
+export default HandleYoutube;

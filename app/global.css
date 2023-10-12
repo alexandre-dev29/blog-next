@@ -349,6 +349,7 @@ div[data-youtube-video] {
   height: 0;
   overflow: hidden;
   max-width: 100%;
+  @apply my-6;
 }
 
 .youtube_frame {

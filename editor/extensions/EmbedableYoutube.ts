@@ -1,8 +1,8 @@
-import YoutubeEmbeddable from '@/components/tiptap/YoutubeEmbeddable';
+import EmbeddableTipTapComponent from '@/editor/components/EmbeddableElement';
 import { mergeAttributes, Node, ReactNodeViewRenderer } from '@tiptap/react';
 
 export default Node.create({
-  name: 'youtubeEmbeddable',
+  name: 'embeddableElement',
   group: 'block',
   atom: true,
   addAttributes() {
@@ -22,12 +22,12 @@ export default Node.create({
     };
   },
   parseHTML() {
-    return [{ tag: 'youtubeEmbeddable' }];
+    return [{ tag: 'embeddableElement' }];
   },
   renderHTML({ HTMLAttributes }) {
-    return ['youtubeEmbeddable', mergeAttributes(HTMLAttributes)];
+    return ['embeddableElement', mergeAttributes(HTMLAttributes)];
   },
   addNodeView() {
-    return ReactNodeViewRenderer(YoutubeEmbeddable);
+    return ReactNodeViewRenderer(EmbeddableTipTapComponent);
   },
 });

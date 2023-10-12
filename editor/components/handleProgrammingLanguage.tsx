@@ -1,4 +1,4 @@
-import { LanguageList } from '@/components/tiptap/LanguageList';
+import { LanguageList } from '@/editor/components/LanguageList';
 import Tippy from '@tippyjs/react';
 import { Editor } from '@tiptap/react';
 import React from 'react';

@@ -1,31 +1,30 @@
-import React, {useState} from "react"
-import {Editor, FloatingMenu} from "@tiptap/react"
-import {Frame, ImagePlus, Plus, Youtube} from "lucide-react"
-
-import {Button} from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from '@/components/ui/popover';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import HandleImage from "@/components/tiptap/HandleImage"
-import HandleYoutube from "@/components/tiptap/HandleYoutube"
-import HandleZappEmbed from "@/components/tiptap/HandleZappEmbed"
+} from '@/components/ui/tooltip';
+import HandleImage from '@/editor/components/HandleImage';
+import HandleYoutube from '@/editor/components/HandleYoutube';
+import HandleZappEmbed from '@/editor/components/HandleZappEmbed';
+import { Editor, FloatingMenu } from '@tiptap/react';
+import { ImagePlus, Plus, Youtube } from 'lucide-react';
+import React, { useState } from 'react';
 
-const FloatingButtonTipTap = ({editor}: { editor: Editor | null }) => {
-  const [isModalImageOpen, setIsModalImageOpen] = useState(false)
-  const [isModalYoutubeOpen, setIsModalYoutubeOpen] = useState(false)
-  const [isModalZappOpen, setIsModalZappOpen] = useState(false)
+const FloatingButtonTipTap = ({ editor }: { editor: Editor | null }) => {
+  const [isModalImageOpen, setIsModalImageOpen] = useState(false);
+  const [isModalYoutubeOpen, setIsModalYoutubeOpen] = useState(false);
+  const [isModalZappOpen, setIsModalZappOpen] = useState(false);
   return (
     <>
       {editor && (
-        <FloatingMenu editor={editor} tippyOptions={{duration: 100}}>
+        <FloatingMenu editor={editor} tippyOptions={{ duration: 100 }}>
           <HandleImage
             editor={editor}
             isOpen={isModalImageOpen}
@@ -45,26 +44,26 @@ const FloatingButtonTipTap = ({editor}: { editor: Editor | null }) => {
           />
 
           <Popover>
-            <PopoverTrigger className={"relative"}>
+            <PopoverTrigger className={'relative'}>
               <Button
                 variant="outline"
                 className="absolute -left-14  -top-6 w-10 rounded-full p-0"
               >
-                <Plus className="h-4 w-4"/>
+                <Plus className="h-4 w-4" />
                 <span className="sr-only">Add</span>
-              </Button>{" "}
+              </Button>{' '}
             </PopoverTrigger>
             <PopoverContent
-              className={"absolute -top-8 flex justify-around p-2"}
+              className={'absolute -top-8 flex justify-around p-2'}
             >
               <Button
                 variant="outline"
                 className=" w-10 rounded-full p-0"
                 onClick={() => {
-                  setIsModalImageOpen(true)
+                  setIsModalImageOpen(true);
                 }}
               >
-                <ImagePlus className="h-4 w-4"/>
+                <ImagePlus className="h-4 w-4" />
                 <span className="sr-only">Add</span>
               </Button>
 
@@ -75,10 +74,10 @@ const FloatingButtonTipTap = ({editor}: { editor: Editor | null }) => {
                       variant="outline"
                       className=" w-10 rounded-full p-0"
                       onClick={() => {
-                        setIsModalYoutubeOpen(true)
+                        setIsModalYoutubeOpen(true);
                       }}
                     >
-                      <Youtube className="h-4 w-4"/>
+                      <Youtube className="h-4 w-4" />
                       <span className="sr-only">Add youtube</span>
                     </Button>
                   </TooltipTrigger>
@@ -89,10 +88,10 @@ const FloatingButtonTipTap = ({editor}: { editor: Editor | null }) => {
                 <Tooltip>
                   <TooltipTrigger>
                     <Button
-                      variant={"ghost"}
+                      variant={'ghost'}
                       className=" w-6 rounded-full p-0"
                       onClick={() => {
-                        setIsModalZappOpen(true)
+                        setIsModalZappOpen(true);
                       }}
                     >
                       <svg
@@ -157,7 +156,7 @@ const FloatingButtonTipTap = ({editor}: { editor: Editor | null }) => {
         </FloatingMenu>
       )}
     </>
-  )
-}
+  );
+};
 
-export default FloatingButtonTipTap
+export default FloatingButtonTipTap;

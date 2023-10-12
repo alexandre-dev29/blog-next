@@ -1,6 +1,5 @@
 'use client';
 
-import Tiptap from '@/components/tiptap/Tiptap';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,7 +27,8 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { tipTapEditorConfig } from '@/config/tiptap';
+import Tiptap from '@/editor/components/Tiptap';
+import { tipTapEditorConfig } from '@/editor/config/tiptap';
 import { axiosInstance } from '@/lib/axiosInstance';
 import { cn } from '@/lib/utils';
 import { Categories, Posts } from '@/types/allTypes';
@@ -92,7 +92,10 @@ const EditPostForm = ({
         postDescription,
         postMainImage,
         categoryId,
-        postContent: editor?.storage.markdown.getMarkdown(),
+        postContent: editor?.storage.markdown
+          .getMarkdown()
+          .toString()
+          .replaceAll(/embeddableElement/gi, 'EmbeddableElement'),
         Tags: postTags,
         id: postData.id,
         actionType: ActionType.Edit,

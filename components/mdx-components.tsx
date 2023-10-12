@@ -2,6 +2,7 @@
 
 import { Callout } from '@/components/callout';
 import { CodeBlockWrapper } from '@/components/code-block-wrapper';
+import { EmbeddableMdxComp } from '@/components/common/EmbeddableMdxComp';
 import { ComponentSource } from '@/components/component-source';
 import { CopyButton } from '@/components/copy-code';
 import BlurImage from '@/components/images/blur-image';
@@ -91,7 +92,9 @@ const mdxComponents = {
       {...props}
     />
   ),
-  youtubeembeddable: ({ youtubeurl, ...props }: any) => <h5>Alexandre</h5>,
+  EmbeddableElement: ({ youtubeurl, ...props }: any) => (
+    <EmbeddableMdxComp youtubeUrl={youtubeurl} />
+  ),
 
   h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6

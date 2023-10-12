@@ -1,8 +1,8 @@
-import Iframe from '@/components/tiptap/Iframe';
 import { createImageExtension } from '@/config/customImage';
 import Commands from '@/editor/Commands';
 import getSuggestionItems from '@/editor/CommandsItem';
 import EmbedableYoutube from '@/editor/extensions/EmbedableYoutube';
+import Iframe from '@/editor/extensions/Iframe';
 import renderItems from '@/editor/renderItems';
 import { cloudinaryUploadImage } from '@/lib/utils';
 import { EditorOptions } from '@tiptap/core';

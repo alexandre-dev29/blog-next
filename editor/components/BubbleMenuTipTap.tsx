@@ -1,6 +1,3 @@
-import HandleImage from '@/components/tiptap/HandleImage';
-import HandleLinks from '@/components/tiptap/handleLinks';
-import HandleProgrammingLanguage from '@/components/tiptap/handleProgrammingLanguage';
 import { Toggle } from '@/components/ui/toggle';
 import {
   Tooltip,
@@ -8,6 +5,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import HandleImage from '@/editor/components/HandleImage';
+import HandleLinks from '@/editor/components/handleLinks';
+import HandleProgrammingLanguage from '@/editor/components/handleProgrammingLanguage';
 import { BubbleMenu, Editor } from '@tiptap/react';
 import {
   Bold,
@@ -32,7 +32,7 @@ const isEmbeddable = (editor: Editor | any) => {
   return (
     editor?.state.selection.node &&
     editor.state.selection.node.type &&
-    editor.state.selection.node.type.name === 'youtubeEmbeddable'
+    editor.state.selection.node.type.name === 'embeddableElement'
   );
 };
 
