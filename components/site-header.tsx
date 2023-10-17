@@ -2,12 +2,8 @@ import { SiteNavigationMenu } from '@/components/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import UserConnection from '@/components/user-connection';
 import { categories, DbConnection } from '@/db/src';
-import { getUserFromSession } from '@/lib/utils';
-import { getServerSession } from 'next-auth';
 
 export async function SiteHeader() {
-  const session = await getServerSession();
-  const userInformation = getUserFromSession(session);
   const categorylist = await DbConnection.instance()
     .select({
       idCategory: categories.id,
@@ -23,7 +19,7 @@ export async function SiteHeader() {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
             <ThemeToggle />
-            <UserConnection userData={userInformation} />
+            <UserConnection />
           </nav>
         </div>
       </div>

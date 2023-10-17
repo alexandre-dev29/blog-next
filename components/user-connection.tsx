@@ -17,7 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Users } from '@/types/allTypes';
+import { getUserFromSession } from '@/lib/utils';
 import {
   FileText,
   Github,
@@ -26,16 +26,15 @@ import {
   LogOut,
   User,
 } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-interface UserConnectionProps {
-  userData: Users | null;
-}
+const UserConnection = () => {
+  const { data, status } = useSession();
+  const userData = getUserFromSession(data);
 
-const UserConnection = ({ userData }: UserConnectionProps) => {
   return (
     <>
       {userData ? (
