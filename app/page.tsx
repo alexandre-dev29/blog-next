@@ -1,16 +1,19 @@
-import ArticleCard from '@/components/common/article-card';
+import { ArticleListHomePage } from '@/components/ArticleListHomePage';
 import { FeaturedArticle } from '@/components/common/featured-article';
 import { Separator } from '@/components/ui/separator';
 import { DbConnection, posts } from '@/db/src';
 import { countUserVisit } from '@/lib/countVisitUtil';
 import { selectPostsSchema } from '@/types/allTypes';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
+import { HeartIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function Index() {
   const allPosts = selectPostsSchema.array().parse(
     await DbConnection.instance().query.posts.findMany({
       with: { author: true, category: true },
       where: eq(posts.isPublished, true),
+      orderBy: [desc(posts.publishedAt)],
     })
   );
 
@@ -38,17 +41,27 @@ export default async function Index() {
         />
       </section>
       <Separator />
-      <section className="container grid grid-cols-1 gap-x-8 gap-y-16 py-8 md:grid-cols-2 md:gap-x-12 lg:gap-x-16 xl:grid-cols-3">
-        {allPosts
-          .filter((value) => value.isPublished)
-          .map((currentPost) => (
-            <ArticleCard
-              key={currentPost.id}
-              currentPost={currentPost}
-              withAuthor={true}
-            />
-          ))}
-      </section>
+      <ArticleListHomePage
+        allPosts={allPosts.filter((value) => value.isPublished)}
+      />
+
+      {/*<NewsletterSubscribe />*/}
+      <footer
+        className={
+          'w-full bg-gray-900 flex justify-center py-4 text-white items-center gap-2'
+        }
+      >
+        <p className={'flex'}>
+          Build with <HeartIcon className={'text-red-600 mx-3'} /> by
+        </p>
+        <Link
+          href={'https://axelmwenze.dev'}
+          className={'font-bold underline underline-offset-4'}
+          target={'_blank'}
+        >
+          Axel Mwenze
+        </Link>
+      </footer>
     </>
   );
 }
