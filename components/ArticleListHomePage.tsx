@@ -16,7 +16,7 @@ const paginatePosts = (
 
 export function ArticleListHomePage({ allPosts }: { allPosts: Posts[] }) {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const pageSize = 4;
+  const pageSize = 6;
   const noNext = currentPage * pageSize >= allPosts.length;
 
   return (
