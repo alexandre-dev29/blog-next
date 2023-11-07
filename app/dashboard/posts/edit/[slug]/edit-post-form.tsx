@@ -27,14 +27,12 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import Tiptap from '@/editor/components/Tiptap';
-import { tipTapEditorConfig } from '@/editor/config/tiptap';
 import { axiosInstance } from '@/lib/axiosInstance';
-import { cn } from '@/lib/utils';
+import { cloudinaryUploadImage, cn } from '@/lib/utils';
 import { Categories, Posts } from '@/types/allTypes';
 import { ActionType } from '@/types/uiTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEditor } from '@tiptap/react';
+import { AwesomeEditor, useEditorDefault } from '@proudlydev/awesome-editor';
 import { Loader2, MoveUpRightIcon, Save, XOctagon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
@@ -74,7 +72,10 @@ const EditPostForm = ({
       categoryId: `${postData.categoryId}`,
     },
   });
-  const editor = useEditor(tipTapEditorConfig(postData.postContent));
+  const editor = useEditorDefault({
+    content: postData.postContent,
+    imageUploadMethod: cloudinaryUploadImage,
+  });
   const [isLoading, setIsLoading] = useState<boolean>();
   const router = useRouter();
 
@@ -227,15 +228,11 @@ const EditPostForm = ({
 
                 <div className={'col-span-2'}></div>
               </div>
-
-              <Button
-                className="flex gap-4 self-end fixed top-20 right-2 z-40"
-                disabled={isLoading}
-              >
+              <Button className="flex gap-4 self-end z-40" disabled={isLoading}>
                 {!isLoading ? (
                   <>
-                    <Save />
                     Save
+                    <Save />
                   </>
                 ) : (
                   <>
@@ -244,7 +241,7 @@ const EditPostForm = ({
                   </>
                 )}
               </Button>
-              <Button className="flex self-end fixed top-20 right-32 z-40">
+              <Button className="flex self-end z-40">
                 Preview
                 <MoveUpRightIcon className={'h-4'} />
               </Button>
@@ -302,7 +299,7 @@ const EditPostForm = ({
             />
           </div>
           <Separator className="my-4 md:my-6" />
-          <Tiptap editor={editor} />
+          <AwesomeEditor editor={editor} />
         </div>
       </div>
     </Form>

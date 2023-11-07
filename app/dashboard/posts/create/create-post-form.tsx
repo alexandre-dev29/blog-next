@@ -27,13 +27,11 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import Tiptap from '@/editor/components/Tiptap';
-import { tipTapEditorConfig } from '@/editor/config/tiptap';
 import { axiosInstance } from '@/lib/axiosInstance';
-import { cn } from '@/lib/utils';
+import { cloudinaryUploadImage, cn } from '@/lib/utils';
 import { Categories, Users } from '@/types/allTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEditor } from '@tiptap/react';
+import { AwesomeEditor, useEditorDefault } from '@proudlydev/awesome-editor';
 import { Loader2, Save, XOctagon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -65,7 +63,11 @@ const CreatePostForm = ({
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>();
 
-  const editor = useEditor(tipTapEditorConfig(''));
+  const editor = useEditorDefault({
+    content: '',
+    imageUploadMethod: cloudinaryUploadImage,
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -285,7 +287,7 @@ const CreatePostForm = ({
           </p>
         </div>
         <Separator className="my-4 md:my-6" />
-        <Tiptap editor={editor} />
+        <AwesomeEditor editor={editor} />
       </div>
     </div>
   );
