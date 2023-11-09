@@ -39,6 +39,7 @@
     "clsx": "2.0.0",
     "cmdk": "0.2.0",
     "cookies-next": "4.0.0",
+    "date-fns": "^2.30.0",
     "dotenv": "10.0.0",
     "drizzle-orm": "0.28.6",
     "drizzle-zod": "0.5.1",

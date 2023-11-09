@@ -1,7 +1,7 @@
 import ArticleTable from '@/components/dashboard/article-table';
 import InfoCard from '@/components/dashboard/info-card';
-import { Overview } from '@/components/dashboard/overview';
 import PropertyReferals from '@/components/dashboard/Referals';
+import { ViewStatistics } from '@/components/dashboard/ViewStatistics';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { DbConnection, posts } from '@/db/src';
+import { DbConnection, posts, userVisites } from '@/db/src';
 import { getUserFromSession } from '@/lib/utils';
 import { selectPostsSchema } from '@/types/allTypes';
 import { eq } from 'drizzle-orm';
@@ -24,6 +24,9 @@ export default async function Index() {
   const allPostsByAuthor = await DbConnection.instance().query.posts.findMany({
     with: { category: true, author: true },
     where: eq(posts.authorId, `${userInformation?.id}`),
+  });
+  const allViews = await DbConnection.instance().query.userVisites.findMany({
+    where: eq(userVisites.authorVisited, `${userInformation?.id}`),
   });
   const totalLikes: number = allPostsByAuthor
     .map((a) => a.postTotalLikes)
@@ -87,10 +90,10 @@ export default async function Index() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Overview</CardTitle>
+            <CardTitle>Views Statistics</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <ViewStatistics statisticDatas={allViews} />
           </CardContent>
         </Card>
         <Card className="col-span-3">

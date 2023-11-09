@@ -26,11 +26,11 @@ const ArticleTable = ({ allPosts }: { allPosts: Posts[] }) => {
             <TableRow>
               <TableHead className="!p-4">No</TableHead>
               <TableHead className={'text-left'}>Article Title</TableHead>
-              <TableHead>Post Date</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Likes</TableHead>
               <TableHead>shared</TableHead>
               <TableHead>Viewers</TableHead>
+              <TableHead>Post Date</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="divide-y">

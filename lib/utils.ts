@@ -28,7 +28,17 @@ export const cloudinaryUploadImage = async (file: any): Promise<string> => {
   return responseData.data.secure_url;
 };
 
+export const groupBy = <T>(
+  array: T[],
+  predicate: (value: T, index: number, array: T[]) => string
+) =>
+  array.reduce((acc, value, index, array) => {
+    (acc[predicate(value, index, array)] ||= []).push(value);
+    return acc;
+  }, {} as { [key: string]: T[] });
+
 const normalizeSrc = (src: string) => (src[0] === '/' ? src.slice(1) : src);
+
 export function cloudinaryLoader({ src, width, quality }: any) {
   const params = [
     'f_auto',
