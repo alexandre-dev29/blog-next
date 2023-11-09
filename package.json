@@ -11,7 +11,7 @@
     "@headlessui/react": "1.7.17",
     "@hookform/resolvers": "3.3.1",
     "@nx/next": "16.9.1",
-    "@proudlydev/awesome-editor": "0.1.6",
+    "@proudlydev/awesome-editor": "0.1.7",
     "@radix-ui/react-accordion": "1.1.2",
     "@radix-ui/react-aspect-ratio": "1.0.3",
     "@radix-ui/react-avatar": "1.0.4",

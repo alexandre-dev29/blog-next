@@ -288,7 +288,7 @@ const CreatePostForm = ({
           </p>
         </div>
         <Separator className="my-4 md:my-6" />
-        <AwesomeEditor editor={editor} />
+        <AwesomeEditor editor={editor} imageUploadFn={cloudinaryUploadImage} />
       </div>
     </div>
   );

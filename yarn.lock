@@ -2035,10 +2035,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@proudlydev/awesome-editor@0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@proudlydev/awesome-editor/-/awesome-editor-0.1.6.tgz#ee9ee3b189859f114545479499d9a0032b5e35b1"
-  integrity sha512-U+6/uh5/gi3vRdLRA3aUcL40m2/jPpSzC88W/4EDuStChEPYfE9DrW6iAyfuYKgOxXOxjWHJog24+UOAMUMbzw==
+"@proudlydev/awesome-editor@0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@proudlydev/awesome-editor/-/awesome-editor-0.1.7.tgz#73b446a2c166284f1992dd64892fa5ac32abdd62"
+  integrity sha512-xDNe7AbUkrJfKt3iiZx4kGbJyG6QZOI4MXBjxI0MkBxT6w93OdqAHmCLYh/wrp55prSjPp0Jun1XIFWpcaH6zQ==
   dependencies:
     "@radix-ui/react-label" "^2.0.2"
     "@radix-ui/react-popover" "^1.0.7"
