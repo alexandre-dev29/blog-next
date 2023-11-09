@@ -1,5 +1,6 @@
 'use client';
 
+import '@proudlydev/awesome-editor/dist/style.css';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
