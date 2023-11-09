@@ -41,7 +41,7 @@ export async function PUT(request: Request) {
         .where(eq(posts.id, id));
       return NextResponse.json({
         messageType: 'success',
-        message: 'the profile has been edited',
+        message: 'the post has been edited',
       });
     } else {
       const read = readingTime(postContent);

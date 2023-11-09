@@ -37,6 +37,7 @@ import {
   Save,
   XOctagon,
 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -65,6 +66,7 @@ const EditPostForm = ({
   const [postTags, setPostTags] = useState<string[]>([
     ...tagsJoined.split('||'),
   ]);
+  const [isPublished, setIsPublished] = useState<boolean>(postData.isPublished);
   const formReference = useRef<HTMLFormElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,6 +84,21 @@ const EditPostForm = ({
   const [isLoading, setIsLoading] = useState<boolean>();
   const router = useRouter();
   const toast = useToast();
+
+  const confirmEdit = async () => {
+    await axiosInstance.put(`/api/posts`, {
+      id: postData.id,
+      isPublished: !isPublished,
+      actionType: ActionType.SetPublish,
+    });
+    toast.toast({
+      title: 'Post Changes',
+      description: `your post has been ${
+        isPublished ? 'Published' : 'UnPublished'
+      }`,
+    });
+    setIsPublished(!isPublished);
+  };
 
   async function onSubmit({
     postTitle,
@@ -260,19 +277,25 @@ const EditPostForm = ({
                     </>
                   )}
                 </Button>
-                <Button className="flex self-end z-40">
+                <Link
+                  href={`/post/${postData.postSlug}`}
+                  target={'_blank'}
+                  className="flex self-end z-40 bg-indigo-500 text-white dark:bg-indigo-400 rounded-xl p-3 justify-center items-center hover:bg-indigo-600 transition-all duration-300"
+                >
                   Preview
                   <MoveUpRightIcon className={'h-4'} />
-                </Button>
+                </Link>
                 <Button
+                  type={'button'}
                   className={cn(
-                    'flex self-end z-40',
-                    postData.isPublished
+                    'flex self-end z-40 transition-all duration-300',
+                    isPublished
                       ? 'bg-red-400 text-white hover:bg-red-600'
                       : 'bg-green-500 text-white hover:bg-green-600'
                   )}
+                  onClick={confirmEdit}
                 >
-                  {postData.isPublished ? (
+                  {isPublished ? (
                     <>
                       Unpublish <EyeOffIcon className={'h-4'} />
                     </>
