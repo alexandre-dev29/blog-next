@@ -4,7 +4,7 @@ import { Callout } from '@/components/callout';
 import { CodeBlockWrapper } from '@/components/code-block-wrapper';
 import { EmbeddableMdxComp } from '@/components/common/EmbeddableMdxComp';
 import { ComponentSource } from '@/components/component-source';
-import { CopyButton } from '@/components/copy-code';
+import CopyButton from '@/components/CopyButton';
 import BlurImage from '@/components/images/blur-image';
 import {
   Accordion,
@@ -18,21 +18,26 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import * as React from 'react';
 
-export const PreElement = ({ children, content, ...props }: any) => {
+export const PreElement = ({ children, node, content, ...props }: any) => {
   const lang = props['data-language'];
+  const id = (Math.floor(Math.random() * 100) + 1).toString();
   return (
-    <pre {...props} className={'p-0'}>
-      <div
-        className={
-          'flex justify-between border-b-2 border-muted-foreground px-6  py-2'
-        }
-      >
-        <p className={'uppercase'} style={{ color: 'rgb(255, 117, 127)' }}>
-          {lang}
-        </p>
-        <CopyButton text={content} />{' '}
+    <pre
+      {...props}
+      className=" bg-graident-dark text-gray-300  rounded-md border-zinc-500 p-0"
+    >
+      <div className="flex items-center justify-between px-5 py-2 border-b-[0.5px] border-zinc-500">
+        <div className="flex items-center gap-2">
+          <p className={'uppercase'} style={{ color: 'rgb(255, 117, 127)' }}>
+            {lang}
+          </p>
+          <p className="text-sm text-gray-400">{node?.data?.meta}</p>
+        </div>
+        <CopyButton id={id} />
       </div>
-      {children}
+      <div className="overflow-x-auto w-full">
+        <div id={id}>{children}</div>
+      </div>
     </pre>
   );
 };
