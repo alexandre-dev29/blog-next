@@ -58,10 +58,17 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["./**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "./**/*.{ts,tsx,js,jsx}"
+        ]
       }
+    },
+    "sitemap": {
+      "command": "yarn next-sitemap"
     }
   },
   "tags": []
