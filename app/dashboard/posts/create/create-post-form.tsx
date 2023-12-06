@@ -108,7 +108,7 @@ const CreatePostForm = ({
       <Form {...form}>
         <div className={'flex gap-16'}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <Card className={'h-fit'}>
+            <Card className={'h-fit max-w-[430px]'}>
               <CardHeader className="space-y-1">
                 <CardTitle className="text-2xl">Create a new post</CardTitle>
                 <CardDescription>

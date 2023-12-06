@@ -136,7 +136,7 @@ const EditPostForm = ({
       <Form {...form}>
         <div className="flex gap-16">
           <form onSubmit={form.handleSubmit(onSubmit)} ref={formReference}>
-            <Card className={'h-fit relative'}>
+            <Card className={'h-fit relative max-w-[430px]'}>
               <CardHeader className="flex gap-4 flex-row items-center ">
                 <ArrowLeftIcon
                   className={'cursor-pointer'}
