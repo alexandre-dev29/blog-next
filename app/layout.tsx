@@ -21,10 +21,6 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_FRONT_URL}`),
   icons: {
     icon: '/favicon.ico',
@@ -33,12 +29,6 @@ export const metadata: Metadata = {
   },
   keywords: siteConfig.keyWords,
   authors: siteConfig.authors,
-  viewport: {
-    minimumScale: 1,
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 6,
-  },
 };
 export default async function RootLayout({
   children,
