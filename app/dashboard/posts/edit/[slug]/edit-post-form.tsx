@@ -278,7 +278,7 @@ const EditPostForm = ({
                   )}
                 </Button>
                 <Link
-                  href={`/post/${postData.postSlug}`}
+                  href={`/draft/${postData.postSlug}`}
                   target={'_blank'}
                   className="flex self-end z-40 bg-indigo-500 text-white dark:bg-indigo-400 rounded-xl p-3 justify-center items-center hover:bg-indigo-600 transition-all duration-300"
                 >

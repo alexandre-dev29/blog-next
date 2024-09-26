@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /dashboard
+
+# Host
+Host: http://localhost:4200
+
+# Sitemaps
+Sitemap: http://localhost:4200/sitemap.xml
+Sitemap: http://localhost:4200/server-sitemap.xml

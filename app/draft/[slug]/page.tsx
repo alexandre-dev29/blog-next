@@ -17,22 +17,6 @@ import matter from 'gray-matter';
 import { Metadata } from 'next';
 import Balancer from 'react-wrap-balancer';
 
-// Next.js will invalidate the cache when a
-// request comes in, at most once every 60 seconds.
-export const revalidate = 60;
-export const dynamicParams = true; // or false, to 404 on unknown paths
-
-export async function generateStaticParams() {
-  const database = DbConnection.instance();
-  const allPosts = await database
-    .select({ slug: posts.postSlug })
-    .from(posts)
-    .where(eq(posts.isPublished, true));
-  return allPosts.map((post) => ({
-    slug: String(post.slug),
-  }));
-}
-
 export default async function Index({ params }: { params: { slug: string } }) {
   const database = DbConnection.instance();
   const postData = await database.query.posts.findFirst({

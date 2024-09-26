@@ -66,7 +66,7 @@ export const columns = (
       cell: ({ row }) => {
         return (
           <Link
-            href={`/post/${row.getValue('postSlug')}`}
+            href={`/draft/${row.getValue('postSlug')}`}
             className={
               'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-base'
             }
