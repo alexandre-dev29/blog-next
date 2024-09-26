@@ -12,9 +12,8 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  experimental: {serverComponentsExternalPackages: ['shiki']},
+  experimental: { serverComponentsExternalPackages: ['shiki'] },
   images: {
-    domains: ['images.unsplash.com', 'res.cloudinary.com'],
     remotePatterns: [
       {
         hostname: '**',
@@ -22,6 +21,10 @@ const nextConfig = {
       },
       {
         hostname: 'images.unsplash.com',
+        protocol: 'https',
+      },
+      {
+        hostname: 'res.cloudinary.com',
         protocol: 'https',
       },
     ],

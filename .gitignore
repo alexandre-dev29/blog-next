@@ -4,6 +4,7 @@
 dist
 tmp
 /out-tsc
+.nx
 
 .env
 /.env
@@ -45,3 +46,5 @@ Thumbs.db
 
 # Next.js
 .next
+
+.nx/cache

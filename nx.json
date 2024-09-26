@@ -3,16 +3,6 @@
   "affected": {
     "defaultBase": "master"
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-
-        ]
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": [

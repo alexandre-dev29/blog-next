@@ -15,12 +15,6 @@ export default function GenerateMetaData({
       title: `${siteConfig.name}`,
       description: 'This this the community blog description',
       authors: [{ name: 'Axel Mwenze', url: 'axelmwenze.dev' }],
-      viewport: {
-        minimumScale: 1,
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 6,
-      },
     };
   } else {
     if (!postData) return {};
@@ -31,12 +25,7 @@ export default function GenerateMetaData({
         siteConfig.name
       }`,
       keywords: postData.tags,
-      viewport: {
-        minimumScale: 1,
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 6,
-      },
+
       authors: [
         {
           name: postData.author?.fullName,
@@ -109,12 +98,7 @@ export function GenerateMetaDataForAuthor({
   return {
     title: `${userDatas.fullName}  | ${siteConfig.name}`,
     keywords: userDatas.fullName.split(' '),
-    viewport: {
-      minimumScale: 1,
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 6,
-    },
+
     authors: [
       {
         name: userDatas.fullName,
